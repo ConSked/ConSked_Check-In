@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">ConSked Check-In</string>
+    <string name="account_type">com.emailxl.consked_check_in</string>
+    <string name="provider">com.emailxl.consked_check_in.provider</string>
+    <string name="loading">Loading &#8230;</string>
+    <string name="label_id">MySQL Id:</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_test">Test</string>
+    <string name="label_login">Login</string>
+    <string name="label_next">Next</string>
+    <string name="label_expoid">expoId:</string>
+    <string name="label_stationid">stationId:</string>
+    <string name="label_workerid">workerId:</string>
+    <string name="radio_Expo">Expo</string>
+    <string name="radio_ShiftAssignment">ShiftAssignment</string>
+    <string name="radio_ShiftStatus">ShiftStatus</string>
+    <string name="radio_StationJob">StationJob</string>
+    <string name="radio_Worker">Worker</string>
+    <string name="error_network">There is currently no network connectivity</string>
+    <string name="title_activity_login2">Login2</string>
+</resources>

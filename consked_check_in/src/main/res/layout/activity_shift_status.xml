@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.emailxl.consked.ShiftStatus">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/label_expoid"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/label_expoid"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/edit_expoid"
+            android:layout_width="9dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textColor="@android:color/black"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/label_stationid"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/label_stationid"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/edit_stationid"
+            android:layout_width="9dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textColor="@android:color/black"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/label_worekerid"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/label_workerid"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+        <EditText
+            android:id="@+id/edit_workerid"
+            android:layout_width="9dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textColor="@android:color/black"/>
+    </TableRow>
+
+    <TextView
+        android:id="@+id/output"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/radio_ShiftAssignment"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_ShiftAssignment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/radio_ShiftAssignment"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+        <RadioButton
+            android:id="@+id/radio_ShiftStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/radio_ShiftStatus"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_test"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"/>
+
+</LinearLayout>
