@@ -59,6 +59,40 @@ public class WorkerAPI {
         return output;
     }
 
+    public static WorkerExt[] searchWorker(String username) {
+
+        String stringUrl = SERVER_URL + "Search/" + username;
+
+        InputStream is = null;
+        WorkerExt[] output = null;
+
+        try {
+            URL url = new URL(stringUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("x-li-format", "json");
+
+            if (conn.getResponseCode() == 200) {
+
+                is = conn.getInputStream();
+                String result = readStream(is);
+                output = loadWorker(result);
+            }
+        } catch (Exception e) {
+            if (LOG) Log.e(TAG, e.getMessage());
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (Exception e) {
+                    if (LOG) Log.e(TAG, e.getMessage());
+                }
+            }
+        }
+
+        return output;
+    }
+
     private static WorkerExt[] loadWorker(String result) throws Exception {
 
         JSONArray jArray = new JSONArray(result);

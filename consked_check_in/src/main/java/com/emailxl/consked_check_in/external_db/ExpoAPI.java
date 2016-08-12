@@ -59,6 +59,40 @@ public class ExpoAPI {
         return output;
     }
 
+    public static ExpoExt[] searchExpo(int workerId) {
+
+        String stringUrl = SERVER_URL + "Search/" + workerId;
+
+        InputStream is = null;
+        ExpoExt[] output = null;
+
+        try {
+            URL url = new URL(stringUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("x-li-format", "json");
+
+            if (conn.getResponseCode() == 200) {
+
+                is = conn.getInputStream();
+                String result = readStream(is);
+                output = loadExpo(result);
+            }
+        } catch (Exception e) {
+            if (LOG) Log.e(TAG, e.getMessage());
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (Exception e) {
+                    if (LOG) Log.e(TAG, e.getMessage());
+                }
+            }
+        }
+
+        return output;
+    }
+
     private static ExpoExt[] loadExpo(String result) throws Exception {
 
         JSONArray jArray = new JSONArray(result);

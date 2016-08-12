@@ -60,15 +60,11 @@ public class WorkerHandler {
     /**
      * Method to retrieve a worker with a specific external id
      *
-     * @param idExt The id of the worker to be retrieved.
      * @return The worker json for the specified id.
      */
-    public WorkerInt getWorkerIdExt(int idExt) {
+    public WorkerInt getWorker() {
 
-        String selection = ConSkedCheckInProvider.WORKERIDEXT + " = ?";
-        String[] selectionArgs = {Integer.toString(idExt)};
-
-        Cursor cursor = context.getContentResolver().query(uri, null, selection, selectionArgs, null);
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
 
         WorkerInt worker = null;
         if (cursor != null) {

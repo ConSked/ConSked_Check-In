@@ -21,8 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".Loading"/>
+        <activity android:name=".Stations"/>
 
         <provider
             android:name=".internal_db.ConSkedCheckInProvider"
@@ -46,6 +46,7 @@
         <service
             android:name=".external_db.SyncService"
             android:exported="false">
+
             <!-- android:process=":sync" -->
             <intent-filter>
                 <action android:name="android.content.SyncAdapter"/>
@@ -56,8 +57,6 @@
                 android:resource="@xml/syncadapter"/>
         </service>
 
-        <activity android:name=".ShiftStatus">
-        </activity>
     </application>
 
 </manifest>

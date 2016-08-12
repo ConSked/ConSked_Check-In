@@ -10,23 +10,14 @@ import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.emailxl.consked_check_in.MainActivity;
+import com.emailxl.consked_check_in.Loading;
 import com.emailxl.consked_check_in.internal_db.ExpoHandler;
 import com.emailxl.consked_check_in.internal_db.ExpoInt;
-import com.emailxl.consked_check_in.internal_db.ShiftAssignmentHandler;
-import com.emailxl.consked_check_in.internal_db.ShiftAssignmentInt;
-import com.emailxl.consked_check_in.internal_db.ShiftStatusHandler;
-import com.emailxl.consked_check_in.internal_db.ShiftStatusInt;
-import com.emailxl.consked_check_in.internal_db.StationJobHandler;
-import com.emailxl.consked_check_in.internal_db.StationJobInt;
 import com.emailxl.consked_check_in.internal_db.WorkerHandler;
 import com.emailxl.consked_check_in.internal_db.WorkerInt;
 
-import static com.emailxl.consked_check_in.external_db.ExpoAPI.readExpo;
-import static com.emailxl.consked_check_in.external_db.ShiftAssignmentAPI.readShiftAssignment;
-import static com.emailxl.consked_check_in.external_db.ShiftStatusAPI.readShiftStatus;
-import static com.emailxl.consked_check_in.external_db.StationJobAPI.readStationJob;
-import static com.emailxl.consked_check_in.external_db.WorkerAPI.readWorker;
+import static com.emailxl.consked_check_in.external_db.ExpoAPI.searchExpo;
+import static com.emailxl.consked_check_in.external_db.WorkerAPI.searchWorker;
 
 /**
  * handle the transfer of data between a server and an app.
@@ -61,122 +52,58 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         if (LOG) Log.i(TAG, "Starting sync");
 
-        int id = extras.getInt("id");
-        int expoId = extras.getInt("expoId");
-        int stationId = extras.getInt("stationId");
-        int workerId = extras.getInt("workerId");
-        String table = extras.getString("table");
+        String action = extras.getString("action");
+        String username = extras.getString("username");
 
-        syncReadExt(id, expoId, stationId, workerId, table);
+        if ("read".equals(action)) {
+            syncReadExt(username);
+        }
 
         if (LOG) Log.i(TAG, "Ending sync");
     }
 
-    private void syncReadExt(int id, int expoId, int stationId, int workerId, String table) {
+    private void syncReadExt(String username) {
 
         if (LOG) Log.i(TAG, "Read");
 
-        if ("Expo".equals(table)) {
-            ExpoHandler db = new ExpoHandler(mContext);
-            db.deleteExpoAll();
+        WorkerHandler dbw = new WorkerHandler(mContext);
+        dbw.deleteWorkerAll();
 
-            ExpoExt[] expoExts = readExpo(id);
+        ExpoHandler dbe = new ExpoHandler(mContext);
+        dbe.deleteExpoAll();
 
-            if (expoExts != null && expoExts.length != 0)
-            {
+        // get worker from the external database
+        WorkerExt[] workerExts = searchWorker(username);
+
+        // load worker into internal database
+        if (workerExts != null && workerExts.length != 0) {
+            for (WorkerExt workerExt : workerExts) {
+
+                WorkerInt workerInt = new WorkerInt();
+                workerInt.setWorkerIdExt(workerExt.getWorkerIdExt());
+                workerInt.setFirstName(workerExt.getFirstName());
+                workerInt.setLastName(workerExt.getLastName());
+                workerInt.setAuthrole(workerExt.getAuthrole());
+                dbw.addWorker(workerInt);
+            }
+
+            // get expos from the external database
+            ExpoExt[] expoExts = searchExpo(workerExts[0].getWorkerIdExt());
+
+            // load expos into internal database
+            if (expoExts != null && expoExts.length != 0) {
                 for (ExpoExt expoExt : expoExts) {
 
-                    ExpoInt expo = new ExpoInt();
-
-                    expo.setExpoIdExt(expoExt.getExpoIdExt());
-                    expo.setStartTime(expoExt.getStartTime().getDate());
-                    expo.setStopTime(expoExt.getStopTime().getDate());
-                    expo.setTitle(expoExt.getTitle());
-
-                    db.addExpo(expo);
-                }
-            }
-        } else if ("ShiftAssignment".equals(table)) {
-            ShiftAssignmentHandler db = new ShiftAssignmentHandler(mContext);
-            db.deleteShiftAssignmentAll();
-
-            ShiftAssignmentExt[] shiftAssignmentExts = readShiftAssignment(expoId, workerId);
-
-            if (shiftAssignmentExts != null && shiftAssignmentExts.length != 0) {
-                for (ShiftAssignmentExt shiftAssignmentExt : shiftAssignmentExts) {
-
-                    ShiftAssignmentInt shiftassignment = new ShiftAssignmentInt();
-
-                    shiftassignment.setWorkerIdExt(shiftAssignmentExt.getWorkerIdExt());
-                    shiftassignment.setJobIdExt(shiftAssignmentExt.getJobIdExt());
-                    shiftassignment.setStationIdExt(shiftAssignmentExt.getStationIdExt());
-                    shiftassignment.setExpoIdExt(shiftAssignmentExt.getExpoIdExt());
-
-                    db.addShiftAssignment(shiftassignment);
-                }
-            }
-        } else if ("ShiftStatus".equals(table)) {
-            ShiftStatusHandler db = new ShiftStatusHandler(mContext);
-            db.deleteShiftStatusAll();
-
-            ShiftStatusExt[] shiftStatusExts = readShiftStatus(expoId, stationId, workerId);
-
-            if (shiftStatusExts != null && shiftStatusExts.length != 0) {
-                for (ShiftStatusExt shiftStatusExt : shiftStatusExts) {
-
-                    ShiftStatusInt shiftstatus = new ShiftStatusInt();
-
-                    shiftstatus.setShiftstatusIdExt(shiftStatusExt.getShiftstatusIdExt());
-                    shiftstatus.setExpoIdExt(shiftStatusExt.getExpoIdExt());
-                    shiftstatus.setStationIdExt(shiftStatusExt.getStationIdExt());
-                    shiftstatus.setWorkerIdExt(shiftStatusExt.getWorkerIdExt());
-                    shiftstatus.setStatusType(shiftStatusExt.getStatusType());
-                    shiftstatus.setStatusTime(shiftStatusExt.getStatusTime().getDate());
-
-                    db.addShiftStatus(shiftstatus);
-                }
-            }
-        } else if ("StationJob".equals(table)) {
-            StationJobHandler db = new StationJobHandler(mContext);
-            db.deleteStationJobAll();
-
-            StationJobExt[] stationJobExts = readStationJob(id);
-
-            if (stationJobExts != null && stationJobExts.length != 0) {
-                for (StationJobExt stationJobExt: stationJobExts) {
-
-                    StationJobInt stationjob = new StationJobInt();
-
-                    stationjob.setStationIdExt(stationJobExt.getStationIdExt());
-                    stationjob.setExpoIdExt(stationJobExt.getExpoIdExt());
-                    stationjob.setStartTime(stationJobExt.getStartTime().getDate());
-                    stationjob.setStopTime(stationJobExt.getStopTime().getDate());
-                    stationjob.setStationTitle(stationJobExt.getStationTitle());
-
-                    db.addStationJob(stationjob);
-                }
-            }
-        } else if ("Worker".equals(table)) {
-            WorkerHandler db = new WorkerHandler(mContext);
-            db.deleteWorkerAll();
-
-            WorkerExt[] workerExts = readWorker(id);
-
-            if (workerExts != null && workerExts.length != 0) {
-                for (WorkerExt workerExt: workerExts) {
-
-                    WorkerInt worker = new WorkerInt();
-
-                    worker.setWorkerIdExt(workerExt.getWorkerIdExt());
-                    worker.setFirstName(workerExt.getFirstName());
-                    worker.setLastName(workerExt.getLastName());
-                    worker.setAuthrole(workerExt.getAuthrole());
-
-                    db.addWorker(worker);
+                    ExpoInt expoInt = new ExpoInt();
+                    expoInt.setExpoIdExt(expoExt.getExpoIdExt());
+                    expoInt.setStartTime(expoExt.getStartTime().getDate());
+                    expoInt.setStopTime(expoExt.getStopTime().getDate());
+                    expoInt.setTitle(expoExt.getTitle());
+                    dbe.addExpo(expoInt);
                 }
             }
         }
 
-        mContext.sendBroadcast(new Intent(MainActivity.ACTION_FINISHED_SYNC));
+        mContext.sendBroadcast(new Intent(Loading.ACTION_FINISHED_SYNC));
     }
 }

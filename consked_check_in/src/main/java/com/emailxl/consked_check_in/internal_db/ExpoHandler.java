@@ -7,6 +7,9 @@ import android.net.Uri;
 
 import com.emailxl.consked_check_in.utils.AppConstants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class for handling the expo table
  * <p/>
@@ -60,10 +63,39 @@ public class ExpoHandler {
     }
 
     /**
+     * Method to retrieve all expos
+     *
+     * @return The list of all expo objects.
+     */
+    public List<ExpoInt> getAllExpos() {
+
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+
+        List<ExpoInt> expoList = new ArrayList<>();
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    ExpoInt expo = new ExpoInt(
+                            cursor.getInt(0),       // idInt
+                            cursor.getInt(1),       // expoIdExt
+                            cursor.getString(2),    // startTime
+                            cursor.getString(3),    // stopTime
+                            cursor.getString(4));   // title
+
+                    expoList.add(expo);
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }
+        return expoList;
+    }
+
+    /**
      * Method to retrieve an expo with a specific external id
      *
      * @param expoIdExt The id of the expo to be retrieved.
-     * @return The expo json for the specified id.
+     * @return The expo object for the specified id.
      */
     public ExpoInt getExpoIdExt(int expoIdExt) {
 
