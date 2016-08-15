@@ -7,6 +7,9 @@ import android.net.Uri;
 
 import com.emailxl.consked_check_in.utils.AppConstants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class for handling the station table
  * <p/>
@@ -48,6 +51,7 @@ public class StationJobHandler {
         values.put(ConSkedCheckInProvider.STARTTIME, stationJob.getStartTime());
         values.put(ConSkedCheckInProvider.STOPTIME, stationJob.getStopTime());
         values.put(ConSkedCheckInProvider.STATIONTITLE, stationJob.getStationTitle());
+        values.put(ConSkedCheckInProvider.LOCATION, stationJob.getStationTitle());
 
         Uri newuri = context.getContentResolver().insert(uri, values);
 
@@ -63,7 +67,7 @@ public class StationJobHandler {
      * Method to retrieve a station with a specific external id
      *
      * @param stationIdExt The id of the station to be retrieved.
-     * @return The station json for the specified id.
+     * @return The station object for the specified id.
      */
     public StationJobInt getStationJobIdExt(int stationIdExt) {
 
@@ -82,12 +86,50 @@ public class StationJobHandler {
                         cursor.getInt(2),       // expoIdExt
                         cursor.getString(3),    // startTime
                         cursor.getString(4),    // stopTime
-                        cursor.getString(5));   // stationTitle
+                        cursor.getString(5),    // stationTitle
+                        cursor.getString(6));   // location
             }
 
             cursor.close();
         }
         return stationJob;
+    }
+
+    /**
+     * Method to retrieve the stations for a specific expo
+     *
+     * @param expoIdExt The id of the expo to be retrieved.
+     * @return The station object for the specified id.
+     */
+    public List<StationJobInt> getStationJobExpoIdExt(int expoIdExt) {
+
+        String selection = ConSkedCheckInProvider.EXPOIDEXT + " = ?";
+        String[] selectionArgs = {Integer.toString(expoIdExt)};
+        String sortOrder = ConSkedCheckInProvider.STARTTIME + "," +
+                ConSkedCheckInProvider.STATIONTITLE + " ASC";
+
+        Cursor cursor = context.getContentResolver().query(uri, null, selection, selectionArgs, sortOrder);
+
+        List<StationJobInt> stationJobList = new ArrayList<>();
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    StationJobInt stationJob = new StationJobInt(
+                            cursor.getInt(0),       // idInt
+                            cursor.getInt(1),       // stationIdExt
+                            cursor.getInt(2),       // expoIdExt
+                            cursor.getString(3),    // startTime
+                            cursor.getString(4),    // stopTime
+                            cursor.getString(5),    // stationTitle
+                            cursor.getString(6));   // location
+
+                    stationJobList.add(stationJob);
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }
+        return stationJobList;
     }
 
     /**

@@ -15,7 +15,7 @@ import static com.emailxl.consked_check_in.utils.Utils.readStream;
  * @author ECG
  */
 
-public class ShiftAssignmentAPI {
+class ShiftAssignmentAPI {
     private static final String SERVER_URL = "http://dev1.consked.com/webservice/ShiftAssignment/Search/";
     private static final String TAG = "ShiftAssignmentAPI";
     private static final boolean LOG = false;

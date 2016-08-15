@@ -13,10 +13,13 @@ import android.util.Log;
 import com.emailxl.consked_check_in.Loading;
 import com.emailxl.consked_check_in.internal_db.ExpoHandler;
 import com.emailxl.consked_check_in.internal_db.ExpoInt;
+import com.emailxl.consked_check_in.internal_db.StationJobHandler;
+import com.emailxl.consked_check_in.internal_db.StationJobInt;
 import com.emailxl.consked_check_in.internal_db.WorkerHandler;
 import com.emailxl.consked_check_in.internal_db.WorkerInt;
 
 import static com.emailxl.consked_check_in.external_db.ExpoAPI.searchExpo;
+import static com.emailxl.consked_check_in.external_db.StationJobAPI.searchStationJob;
 import static com.emailxl.consked_check_in.external_db.WorkerAPI.searchWorker;
 
 /**
@@ -29,7 +32,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     private static final String TAG = "SyncAdapter";
     private static final boolean LOG = true;
 
-    ContentResolver mContentResolver;
+    private ContentResolver mContentResolver;
     private Context mContext;
 
     public SyncAdapter(Context context, boolean autoInitialize) {
@@ -72,6 +75,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         ExpoHandler dbe = new ExpoHandler(mContext);
         dbe.deleteExpoAll();
 
+        StationJobHandler dbs = new StationJobHandler(mContext);
+        dbs.deleteStationJobAll();
+
         // get worker from the external database
         WorkerExt[] workerExts = searchWorker(username);
 
@@ -94,12 +100,31 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             if (expoExts != null && expoExts.length != 0) {
                 for (ExpoExt expoExt : expoExts) {
 
+                    int expoIdExt = expoExt.getExpoIdExt();
+
                     ExpoInt expoInt = new ExpoInt();
-                    expoInt.setExpoIdExt(expoExt.getExpoIdExt());
+                    expoInt.setExpoIdExt(expoIdExt);
                     expoInt.setStartTime(expoExt.getStartTime().getDate());
                     expoInt.setStopTime(expoExt.getStopTime().getDate());
                     expoInt.setTitle(expoExt.getTitle());
                     dbe.addExpo(expoInt);
+
+                    // get stationJobs from the external database
+                    StationJobExt[] stationJobExts = searchStationJob(expoIdExt);
+
+                    // load stationJobs into internal database
+                    if (stationJobExts != null && stationJobExts.length != 0) {
+                        for (StationJobExt stationJobExt : stationJobExts) {
+
+                            StationJobInt stationJobInt = new StationJobInt();
+                            stationJobInt.setStationIdExt(stationJobExt.getStationIdExt());
+                            stationJobInt.setExpoIdExt(stationJobExt.getExpoIdExt());
+                            stationJobInt.setStartTime(stationJobExt.getStartTime().getDate());
+                            stationJobInt.setStopTime(stationJobExt.getStopTime().getDate());
+                            stationJobInt.setStationTitle(stationJobExt.getStationTitle());
+                            dbs.addStationJob(stationJobInt);
+                        }
+                    }
                 }
             }
         }

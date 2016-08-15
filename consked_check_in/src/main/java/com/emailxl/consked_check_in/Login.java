@@ -10,7 +10,7 @@ public class Login extends AppCompatActivity {
     private static final String TAG = "Login";
     private static final boolean LOG = false;
 
-    EditText etEmail, etPassword;
+    private EditText etEmail, etPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

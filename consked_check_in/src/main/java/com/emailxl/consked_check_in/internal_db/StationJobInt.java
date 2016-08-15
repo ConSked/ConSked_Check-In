@@ -12,19 +12,21 @@ public class StationJobInt {
     private String startTime;
     private String stopTime;
     private String stationTitle;
+    private String location;
 
     // Constructors
     public StationJobInt() {
     }
 
     public StationJobInt(int idInt, int stationIdExt, int expoIdExt, String startTime, String stopTime,
-                         String stationTitle) {
+                         String stationTitle, String location) {
         this.idInt = idInt;
         this.stationIdExt = stationIdExt;
         this.expoIdExt = expoIdExt;
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.stationTitle = stationTitle;
+        this.location = location;
     }
 
     // idInt functions
@@ -81,6 +83,15 @@ public class StationJobInt {
         this.stationTitle = stationTitle;
     }
 
+    // location functions
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
 
     @Override
     public String toString() {
@@ -90,6 +101,7 @@ public class StationJobInt {
                 "expoIdExt=" + expoIdExt + ", " +
                 "startTime=" + startTime + ", " +
                 "stopTime=" + stopTime + ", " +
-                "stationTitle=" + stationTitle + "]";
+                "stationTitle=" + stationTitle + ", " +
+                "location=" + location + "]";
     }
 }

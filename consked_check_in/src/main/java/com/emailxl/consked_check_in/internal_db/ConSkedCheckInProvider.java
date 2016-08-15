@@ -48,6 +48,7 @@ public class ConSkedCheckInProvider extends ContentProvider {
     static final String STATUSTYPE = "statusType";
     static final String STATUSTIME = "statusTime";
     static final String STATIONTITLE = "stationTitle";
+    static final String LOCATION = "location";
     static final String FIRSTNAME = "firstName";
     static final String LASTNAME = "lastName";
     static final String AUTHROLE = "authrole";
@@ -265,7 +266,8 @@ public class ConSkedCheckInProvider extends ContentProvider {
                 + EXPOIDEXT + " INTEGER, "
                 + STARTTIME + " TEXT, "
                 + STOPTIME + " TEXT, "
-                + STATIONTITLE + " TEXT)";
+                + STATIONTITLE + " TEXT, "
+                + LOCATION + " TEXT)";
         private static final String CREATE_WORKER_TABLE = "CREATE TABLE " + WORKER_TABLE
                 + " (" + IDINT + " INTEGER PRIMARY KEY, "
                 + WORKERIDEXT + " INTEGER, "
