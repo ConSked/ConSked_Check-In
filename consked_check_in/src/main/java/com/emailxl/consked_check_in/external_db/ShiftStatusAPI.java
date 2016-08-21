@@ -2,6 +2,8 @@ package com.emailxl.consked_check_in.external_db;
 
 import android.util.Log;
 
+import com.emailxl.consked_check_in.utils.AppConstants;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,7 +19,7 @@ import static com.emailxl.consked_check_in.utils.Utils.readStream;
 
 public class ShiftStatusAPI {
 
-    private static final String SERVER_URL = "http://dev1.consked.com/webservice/ShiftStatus/Search/";
+    private static final String SERVER_URL = AppConstants.SERVER_DIR + "ShiftStatus/Search/";
     private static final String TAG = "ShiftStatusAPI";
     private static final boolean LOG = false;
 

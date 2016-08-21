@@ -6,27 +6,24 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/stationJobShift"
+        android:id="@+id/workerName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.0"/>
+        android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/stationJobLocation"
+    <Button
+        android:id="@+id/button_checkin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.0"/>
+        android:layout_weight="1"
+        android:text="@string/button_checkin"/>
 
-    <TextView
-        android:id="@+id/stationJobDate"
+    <Button
+        android:id="@+id/button_checkout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.0"/>
-
-    <TextView
-        android:id="@+id/stationJobTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.0"/>
+        android:layout_weight="1"
+        android:text="@string/button_checkout"
+        android:enabled="false"/>
 
 </LinearLayout>

@@ -71,8 +71,8 @@ public class StationJobAdapter extends ArrayAdapter<StationJobInt> {
         String startTime = stationJobInt.getStartTime();
         String stopTime = stationJobInt.getStopTime();
 
-        holder.tvStationJobDate.setText(getDate(startTime));
-        holder.tvStationJobTime.setText(getTime(startTime, stopTime));
+        holder.tvStationJobDate.setText(Utils.getDate(startTime));
+        holder.tvStationJobTime.setText(Utils.getTime(startTime, stopTime));
 
         return convertView;
     }
@@ -82,23 +82,5 @@ public class StationJobAdapter extends ArrayAdapter<StationJobInt> {
         public TextView tvStationJobLocation;
         public TextView tvStationJobDate;
         public TextView tvStationJobTime;
-    }
-
-    private static String getDate(String startTime) {
-        String[] split1 = startTime.split(" ");
-        String[] split2 = split1[0].split("-");
-
-        return split2[0] + "/" + split2[1] + "/" + split2[2];
-    }
-
-    private static String getTime(String startTime, String stopTime) {
-        String[] startsplit1 = startTime.split(" ");
-        String[] stopsplit1 = stopTime.split(" ");
-
-        String[] startsplit2 = startsplit1[1].split(":");
-        String[] stopsplit2 = stopsplit1[1].split(":");
-
-        return startsplit2[0] + ":" + startsplit2[1] + " - " +
-                stopsplit2[0] + ":" + stopsplit2[1];
     }
 }

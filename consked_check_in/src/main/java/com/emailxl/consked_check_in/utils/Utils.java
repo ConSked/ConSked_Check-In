@@ -60,4 +60,22 @@ public class Utils {
 
         return newAccount;
     }
+
+    public static String getDate(String startTime) {
+        String[] split1 = startTime.split(" ");
+        String[] split2 = split1[0].split("-");
+
+        return split2[0] + "/" + split2[1] + "/" + split2[2];
+    }
+
+    public static String getTime(String startTime, String stopTime) {
+        String[] startsplit1 = startTime.split(" ");
+        String[] stopsplit1 = stopTime.split(" ");
+
+        String[] startsplit2 = startsplit1[1].split(":");
+        String[] stopsplit2 = stopsplit1[1].split(":");
+
+        return startsplit2[0] + ":" + startsplit2[1] + " - " +
+                stopsplit2[0] + ":" + stopsplit2[1];
+    }
 }

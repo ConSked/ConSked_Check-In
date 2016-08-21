@@ -57,6 +57,8 @@
                 android:resource="@xml/syncadapter"/>
         </service>
 
+        <activity android:name=".Workers">
+        </activity>
     </application>
 
 </manifest>

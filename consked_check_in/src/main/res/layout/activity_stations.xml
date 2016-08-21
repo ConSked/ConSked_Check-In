@@ -20,13 +20,12 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/label_expo"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textStyle="bold"/>
         <Spinner
             android:id="@+id/spinner_expo"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textColor="@android:color/black"/>
+            android:layout_weight="1"/>
     </TableRow>
 
     <TableRow
@@ -53,13 +52,12 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/label_date"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textStyle="bold"/>
         <Spinner
             android:id="@+id/spinner_date"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textColor="@android:color/black"/>
+            android:layout_weight="1"/>
     </TableRow>
 
     <TableRow
@@ -70,26 +68,26 @@
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="@string/label_shift"
-            android:textColor="@android:color/black"
+            android:text="@string/label_station"
+            android:textColor="@color/black"
             android:textStyle="bold"/>
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/label_location"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textStyle="bold"/>
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/label_date"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textStyle="bold"/>
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/label_time"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textStyle="bold"/>
         </TableRow>
 

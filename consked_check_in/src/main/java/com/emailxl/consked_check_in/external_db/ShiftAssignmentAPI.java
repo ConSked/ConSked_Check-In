@@ -2,6 +2,8 @@ package com.emailxl.consked_check_in.external_db;
 
 import android.util.Log;
 
+import com.emailxl.consked_check_in.utils.AppConstants;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,11 +18,11 @@ import static com.emailxl.consked_check_in.utils.Utils.readStream;
  */
 
 class ShiftAssignmentAPI {
-    private static final String SERVER_URL = "http://dev1.consked.com/webservice/ShiftAssignment/Search/";
+    private static final String SERVER_URL = AppConstants.SERVER_DIR + "ShiftAssignment/Search/";
     private static final String TAG = "ShiftAssignmentAPI";
     private static final boolean LOG = false;
 
-    public static ShiftAssignmentExt[] readShiftAssignment(int expoIdExt, int workerIdExt) {
+    public static ShiftAssignmentExt[] searchShiftAssignment(int expoIdExt, int workerIdExt) {
 
         String stringUrl = SERVER_URL;
 

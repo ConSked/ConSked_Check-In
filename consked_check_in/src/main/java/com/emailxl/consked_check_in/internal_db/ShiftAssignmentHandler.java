@@ -58,18 +58,18 @@ public class ShiftAssignmentHandler {
     }
 
     /**
-     * Method to retrieve a shiftassignment with a specific external id
+     * Method to retrieve a shiftassignment for a specific expo and station
      *
      * @param expoIdExt The id of the shift expo.
-     * @param workerIdExt The id of the shift worker.
+     * @param stationIdExt The id of the shift station.
      * @return The shiftassignment object for the specified id.
      */
-    public List<ShiftAssignmentInt> getShiftAssignmentIdExt(int expoIdExt, int workerIdExt) {
+    public List<ShiftAssignmentInt> getShiftAssignmentIdExt(int expoIdExt, int stationIdExt) {
 
         String selection = ConSkedCheckInProvider.EXPOIDEXT + " = ? AND " +
-                ConSkedCheckInProvider.WORKERIDEXT + " = ?";
+                ConSkedCheckInProvider.STATIONIDEXT + " = ?";
         String[] selectionArgs = {Integer.toString(expoIdExt),
-                Integer.toString(workerIdExt)};
+                Integer.toString(stationIdExt)};
 
         Cursor cursor = context.getContentResolver().query(uri, null, selection, selectionArgs, null);
 

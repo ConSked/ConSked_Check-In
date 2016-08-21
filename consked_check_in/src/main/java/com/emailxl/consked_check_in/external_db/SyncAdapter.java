@@ -11,15 +11,20 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.emailxl.consked_check_in.Loading;
+import com.emailxl.consked_check_in.Stations;
 import com.emailxl.consked_check_in.internal_db.ExpoHandler;
 import com.emailxl.consked_check_in.internal_db.ExpoInt;
+import com.emailxl.consked_check_in.internal_db.ShiftAssignmentHandler;
+import com.emailxl.consked_check_in.internal_db.ShiftAssignmentInt;
 import com.emailxl.consked_check_in.internal_db.StationJobHandler;
 import com.emailxl.consked_check_in.internal_db.StationJobInt;
 import com.emailxl.consked_check_in.internal_db.WorkerHandler;
 import com.emailxl.consked_check_in.internal_db.WorkerInt;
 
 import static com.emailxl.consked_check_in.external_db.ExpoAPI.searchExpo;
+import static com.emailxl.consked_check_in.external_db.ShiftAssignmentAPI.searchShiftAssignment;
 import static com.emailxl.consked_check_in.external_db.StationJobAPI.searchStationJob;
+import static com.emailxl.consked_check_in.external_db.WorkerAPI.readWorker;
 import static com.emailxl.consked_check_in.external_db.WorkerAPI.searchWorker;
 
 /**
@@ -55,11 +60,15 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         if (LOG) Log.i(TAG, "Starting sync");
 
-        String action = extras.getString("action");
-        String username = extras.getString("username");
+        String action = extras.containsKey("action") ? extras.getString("action") : "";
+        String username = extras.containsKey("username") ? extras.getString("username") : "";
+        int expoIdExt = extras.containsKey("expoIdExt") ? extras.getInt("expoIdExt") : 0;
+        int stationIdExt = extras.containsKey("stationIdExt") ? extras.getInt("stationIdExt") : 0;
 
         if ("read".equals(action)) {
             syncReadExt(username);
+        } else if ("readShift".equals(action)) {
+            syncReadShiftExt(expoIdExt, stationIdExt);
         }
 
         if (LOG) Log.i(TAG, "Ending sync");
@@ -130,5 +139,50 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
 
         mContext.sendBroadcast(new Intent(Loading.ACTION_FINISHED_SYNC));
+    }
+
+    private void syncReadShiftExt(int expoIdExt, int stationIdExt) {
+
+        if (LOG) Log.i(TAG, "ReadShift");
+
+        ShiftAssignmentHandler dba = new ShiftAssignmentHandler(mContext);
+        dba.deleteShiftAssignmentAll();
+
+        WorkerHandler dbw = new WorkerHandler(mContext);
+        dbw.deleteWorkerAll();
+
+        // get shiftAssignments from the external database
+        ShiftAssignmentExt[] shiftAssignmentExts = searchShiftAssignment(expoIdExt, stationIdExt);
+
+        // load shiftAssignments into internal database
+        if (shiftAssignmentExts != null && shiftAssignmentExts.length != 0) {
+            for (ShiftAssignmentExt shiftAssignmentExt : shiftAssignmentExts) {
+
+                ShiftAssignmentInt shiftAssignmentInt = new ShiftAssignmentInt();
+                shiftAssignmentInt.setWorkerIdExt(shiftAssignmentExt.getWorkerIdExt());
+                shiftAssignmentInt.setJobIdExt(shiftAssignmentExt.getJobIdExt());
+                shiftAssignmentInt.setStationIdExt(shiftAssignmentExt.getStationIdExt());
+                shiftAssignmentInt.setExpoIdExt(shiftAssignmentExt.getExpoIdExt());
+                dba.addShiftAssignment(shiftAssignmentInt);
+
+                // get worker from the external database
+                WorkerExt[] workerExts = readWorker(shiftAssignmentExt.getWorkerIdExt());
+
+                // load worker into internal database
+                if (workerExts != null && workerExts.length != 0) {
+                    for (WorkerExt workerExt : workerExts) {
+
+                        WorkerInt workerInt = new WorkerInt();
+                        workerInt.setWorkerIdExt(workerExt.getWorkerIdExt());
+                        workerInt.setFirstName(workerExt.getFirstName());
+                        workerInt.setLastName(workerExt.getLastName());
+                        workerInt.setAuthrole(workerExt.getAuthrole());
+                        dbw.addWorker(workerInt);
+                    }
+                }
+            }
+        }
+
+        mContext.sendBroadcast(new Intent(Stations.ACTION_FINISHED_SYNC));
     }
 }
