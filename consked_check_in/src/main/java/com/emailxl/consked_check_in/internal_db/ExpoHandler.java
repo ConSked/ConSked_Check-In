@@ -41,9 +41,10 @@ public class ExpoHandler {
      * Method to add an expo to the expo table
      *
      * @param expo The expo object.
+     * @param log equals 1 if change should be logged, 0 otherwise.
      * @return The URI for the newly inserted item.
      */
-    public long addExpo(ExpoInt expo) {
+    public long addExpo(ExpoInt expo, int log) {
 
         ContentValues values = new ContentValues();
 
@@ -57,6 +58,21 @@ public class ExpoHandler {
         long lastPathSegment = 0;
         if (newuri != null) {
             lastPathSegment = Long.parseLong(newuri.getLastPathSegment());
+        }
+
+        if (log == 1) {
+            ChangeLogHandler dbc = new ChangeLogHandler(context);
+            ChangeLogInt changeLog = new ChangeLogInt();
+
+            changeLog.setTimestamp(System.currentTimeMillis());
+            changeLog.setSource("local");
+            changeLog.setOperation("create");
+            changeLog.setTableName("expo");
+            changeLog.setIdInt((int) lastPathSegment);
+            changeLog.setIdExt(0);
+            changeLog.setDone(0);
+
+            dbc.addChangeLog(changeLog);
         }
 
         return lastPathSegment;

@@ -23,6 +23,7 @@ import com.emailxl.consked_check_in.utils.AppConstants;
 
 public class ConSkedCheckInProvider extends ContentProvider {
     // database table names
+    public static final String CHANGELOG_TABLE = "changeLog";
     public static final String EXPO_TABLE = "expo";
     public static final String SHIFTASSIGNMENT_TABLE = "shiftassignment";
     public static final String SHIFTSTATUS_TABLE = "shiftstatus";
@@ -36,7 +37,13 @@ public class ConSkedCheckInProvider extends ContentProvider {
     static final String DATABASE_NAME = "ConSked";
     static final int DATABASE_VERSION = 1;
     // database field names;
+    static final String TIMESTAMP = "timestamp";
+    static final String SOURCE = "source";
+    static final String OPERATION = "operation";
+    static final String TABLENAME = "tableName";
     static final String IDINT = "idInt";
+    static final String IDEXT = "idExt";
+    static final String DONE = "done";
     static final String EXPOIDEXT = "expoIdExt";
     static final String STARTTIME = "startTime";
     static final String STOPTIME = "stopTime";
@@ -54,15 +61,17 @@ public class ConSkedCheckInProvider extends ContentProvider {
     static final String AUTHROLE = "authrole";
 
     // integer values used in content URI
-    static final int EXPO_LIST = 1;
-    static final int SHIFTASSIGNMENT_LIST = 2;
-    static final int SHIFTSTATUS_LIST = 3;
-    static final int STATIONJOB_LIST = 4;
-    static final int WORKER_LIST = 5;
+    static final int CHANGELOG_LIST = 1;
+    static final int EXPO_LIST = 2;
+    static final int SHIFTASSIGNMENT_LIST = 3;
+    static final int SHIFTSTATUS_LIST = 4;
+    static final int STATIONJOB_LIST = 5;
+    static final int WORKER_LIST = 6;
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
+        uriMatcher.addURI(PROVIDER_NAME, CHANGELOG_TABLE, CHANGELOG_LIST);
         uriMatcher.addURI(PROVIDER_NAME, EXPO_TABLE, EXPO_LIST);
         uriMatcher.addURI(PROVIDER_NAME, SHIFTASSIGNMENT_TABLE, SHIFTASSIGNMENT_LIST);
         uriMatcher.addURI(PROVIDER_NAME, SHIFTSTATUS_TABLE, SHIFTSTATUS_LIST);
@@ -88,6 +97,9 @@ public class ConSkedCheckInProvider extends ContentProvider {
 
         int match = uriMatcher.match(uri);
         switch (match) {
+            case CHANGELOG_LIST:
+                queryBuilder.setTables(CHANGELOG_TABLE);
+                break;
             case EXPO_LIST:
                 queryBuilder.setTables(EXPO_TABLE);
                 break;
@@ -124,6 +136,8 @@ public class ConSkedCheckInProvider extends ContentProvider {
 
         int match = uriMatcher.match(uri);
         switch (match) {
+            case CHANGELOG_LIST:
+                return LIST + PROVIDER_NAME + "." + CHANGELOG_TABLE;
             case EXPO_LIST:
                 return LIST + PROVIDER_NAME + "." + EXPO_TABLE;
             case SHIFTASSIGNMENT_LIST:
@@ -148,6 +162,10 @@ public class ConSkedCheckInProvider extends ContentProvider {
 
         int match = uriMatcher.match(uri);
         switch (match) {
+            case CHANGELOG_LIST:
+                row = db.insert(CHANGELOG_TABLE, "", values);
+                url += "/" + CHANGELOG_TABLE;
+                break;
             case EXPO_LIST:
                 row = db.insert(EXPO_TABLE, "", values);
                 url += "/" + EXPO_TABLE;
@@ -187,6 +205,9 @@ public class ConSkedCheckInProvider extends ContentProvider {
 
         int match = uriMatcher.match(uri);
         switch (match) {
+            case CHANGELOG_LIST:
+                count = db.delete(CHANGELOG_TABLE, selection, selectionArgs);
+                break;
             case EXPO_LIST:
                 count = db.delete(EXPO_TABLE, selection, selectionArgs);
                 break;
@@ -217,6 +238,9 @@ public class ConSkedCheckInProvider extends ContentProvider {
 
         int match = uriMatcher.match(uri);
         switch (match) {
+            case CHANGELOG_LIST:
+                count = db.update(CHANGELOG_TABLE, values, selection, selectionArgs);
+                break;
             case EXPO_LIST:
                 count = db.update(EXPO_TABLE, values, selection, selectionArgs);
                 break;
@@ -240,6 +264,14 @@ public class ConSkedCheckInProvider extends ContentProvider {
 
     private static final class DBHelper extends SQLiteOpenHelper {
 
+        private static final String CREATE_CHANGELOG_TABLE = "CREATE TABLE " + CHANGELOG_TABLE
+                + " (" + TIMESTAMP + " LONG, "
+                + SOURCE + " TEXT, "
+                + OPERATION + " TEXT, "
+                + TABLENAME + " TEXT, "
+                + IDINT + " INTEGER, "
+                + IDEXT + " INTEGER, "
+                + DONE + " INTEGER)";
         private static final String CREATE_EXPO_TABLE = "CREATE TABLE " + EXPO_TABLE
                 + " (" + IDINT + " INTEGER PRIMARY KEY, "
                 + EXPOIDEXT + " INTEGER, "
@@ -282,6 +314,7 @@ public class ConSkedCheckInProvider extends ContentProvider {
         @Override
         public void onCreate(SQLiteDatabase db) {
 
+            db.execSQL(CREATE_CHANGELOG_TABLE);
             db.execSQL(CREATE_EXPO_TABLE);
             db.execSQL(CREATE_SHIFTASSIGNMENT_TABLE);
             db.execSQL(CREATE_SHIFTSTATUS_TABLE);
@@ -292,6 +325,7 @@ public class ConSkedCheckInProvider extends ContentProvider {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+            db.execSQL("DROP TABLE IF EXISTS " + CHANGELOG_TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + EXPO_TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + SHIFTASSIGNMENT_TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + SHIFTSTATUS_TABLE);

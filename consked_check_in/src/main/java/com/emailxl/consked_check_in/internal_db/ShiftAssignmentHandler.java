@@ -36,9 +36,10 @@ public class ShiftAssignmentHandler {
      * Method to add a shiftassignment to the shiftassignment table
      *
      * @param shiftassignment The shiftassignment object.
+     * @param log equals 1 if change should be loged, 0 otherwise
      * @return The URI for the newly inserted item.
      */
-    public long addShiftAssignment(ShiftAssignmentInt shiftassignment) {
+    public long addShiftAssignment(ShiftAssignmentInt shiftassignment, int log) {
 
         ContentValues values = new ContentValues();
 
@@ -52,6 +53,21 @@ public class ShiftAssignmentHandler {
         long lastPathSegment = 0;
         if (newuri != null) {
             lastPathSegment = Long.parseLong(newuri.getLastPathSegment());
+        }
+
+        if (log == 1) {
+            ChangeLogHandler dbc = new ChangeLogHandler(context);
+            ChangeLogInt changeLog = new ChangeLogInt();
+
+            changeLog.setTimestamp(System.currentTimeMillis());
+            changeLog.setSource("local");
+            changeLog.setOperation("create");
+            changeLog.setTableName("shiftassignment");
+            changeLog.setIdInt((int) lastPathSegment);
+            changeLog.setIdExt(0);
+            changeLog.setDone(0);
+
+            dbc.addChangeLog(changeLog);
         }
 
         return lastPathSegment;

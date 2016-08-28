@@ -36,9 +36,10 @@ public class WorkerHandler {
      * Method to add an worker to the worker table
      *
      * @param worker The worker object.
+     * @param log equals 1 if change should be logged, 0 otherwise
      * @return The URI for the newly inserted item.
      */
-    public long addWorker(WorkerInt worker) {
+    public long addWorker(WorkerInt worker, int log) {
 
         ContentValues values = new ContentValues();
 
@@ -52,6 +53,21 @@ public class WorkerHandler {
         long lastPathSegment = 0;
         if (newuri != null) {
             lastPathSegment = Long.parseLong(newuri.getLastPathSegment());
+        }
+
+        if (log == 1) {
+            ChangeLogHandler dbc = new ChangeLogHandler(context);
+            ChangeLogInt changeLog = new ChangeLogInt();
+
+            changeLog.setTimestamp(System.currentTimeMillis());
+            changeLog.setSource("local");
+            changeLog.setOperation("create");
+            changeLog.setTableName("worker");
+            changeLog.setIdInt((int) lastPathSegment);
+            changeLog.setIdExt(0);
+            changeLog.setDone(0);
+
+            dbc.addChangeLog(changeLog);
         }
 
         return lastPathSegment;

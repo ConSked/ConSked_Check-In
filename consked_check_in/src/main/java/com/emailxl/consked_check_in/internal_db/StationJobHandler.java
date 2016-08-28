@@ -40,9 +40,10 @@ public class StationJobHandler {
      * Method to add an station to the station table
      *
      * @param stationJob The station object.
+     * @param log equals 1 if change should be logged, 0 otherwise
      * @return The URI for the newly inserted item.
      */
-    public long addStationJob(StationJobInt stationJob) {
+    public long addStationJob(StationJobInt stationJob, int log) {
 
         ContentValues values = new ContentValues();
 
@@ -58,6 +59,21 @@ public class StationJobHandler {
         long lastPathSegment = 0;
         if (newuri != null) {
             lastPathSegment = Long.parseLong(newuri.getLastPathSegment());
+        }
+
+        if (log == 1) {
+            ChangeLogHandler dbc = new ChangeLogHandler(context);
+            ChangeLogInt changeLog = new ChangeLogInt();
+
+            changeLog.setTimestamp(System.currentTimeMillis());
+            changeLog.setSource("local");
+            changeLog.setOperation("create");
+            changeLog.setTableName("stationjob");
+            changeLog.setIdInt((int) lastPathSegment);
+            changeLog.setIdExt(0);
+            changeLog.setDone(0);
+
+            dbc.addChangeLog(changeLog);
         }
 
         return lastPathSegment;
