@@ -9,7 +9,6 @@
     <string name="error_network">There is currently no network connectivity</string>
     <string name="loading">Loading &#8230;</string>
     <string name="label_date">Date</string>
-    <string name="label_email">Email</string>
     <string name="label_expo">Expo</string>
     <string name="label_loading">Loading</string>
     <string name="label_location">Location</string>
@@ -17,5 +16,6 @@
     <string name="label_password">Password</string>
     <string name="label_station">Station</string>
     <string name="label_time">Time</string>
+    <string name="label_username">Username</string>
     <string name="no_expo">There is no expo</string>
 </resources>
