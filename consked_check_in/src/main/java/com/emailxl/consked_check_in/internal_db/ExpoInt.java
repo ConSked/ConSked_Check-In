@@ -16,7 +16,7 @@ public class ExpoInt {
     public ExpoInt() {
     }
 
-    public ExpoInt(int idInt, int expoIdExt, String startTime, String stopTime, String title) {
+    ExpoInt(int idInt, int expoIdExt, String startTime, String stopTime, String title) {
         this.idInt = idInt;
         this.expoIdExt = expoIdExt;
         this.startTime = startTime;

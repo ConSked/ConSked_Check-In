@@ -4,7 +4,7 @@ package com.emailxl.consked_check_in.external_db;
  * @author ECG
  */
 
-public class ShiftStatusExt {
+class ShiftStatusExt {
     private int shiftstatusIdExt;
     private int workerIdExt;
     private int stationIdExt;
@@ -13,10 +13,10 @@ public class ShiftStatusExt {
     private Timestamp statusTime;
 
     // Constructors
-    public ShiftStatusExt() {
+    ShiftStatusExt() {
     }
 
-    public ShiftStatusExt(int shiftstatusIdExt, int workerIdExt, int stationIdExt, int expoIdExt,
+    /*public ShiftStatusExt(int shiftstatusIdExt, int workerIdExt, int stationIdExt, int expoIdExt,
                           String statusType, Timestamp statusTime) {
         this.shiftstatusIdExt = shiftstatusIdExt;
         this.workerIdExt = workerIdExt;
@@ -24,14 +24,14 @@ public class ShiftStatusExt {
         this.expoIdExt = expoIdExt;
         this.statusType = statusType;
         this.statusTime = statusTime;
-    }
+    }*/
 
     // shiftstatusIdExt functions
-    public int getShiftstatusIdExt() {
+    int getShiftstatusIdExt() {
         return this.shiftstatusIdExt;
     }
 
-    public void setShiftstatusIdExt(int shiftstatusIdExt) {
+    void setShiftstatusIdExt(int shiftstatusIdExt) {
         this.shiftstatusIdExt = shiftstatusIdExt;
     }
 
@@ -63,20 +63,20 @@ public class ShiftStatusExt {
     }
 
     // statusType functions
-    public String getStatusType() {
+    String getStatusType() {
         return this.statusType;
     }
 
-    public void setStatusType(String statusType) {
+    void setStatusType(String statusType) {
         this.statusType = statusType;
     }
 
     // statusTime functions
-    public Timestamp getStatusTime() {
+    Timestamp getStatusTime() {
         return this.statusTime;
     }
 
-    public void setStatusTime(Timestamp statusTime) {
+    void setStatusTime(Timestamp statusTime) {
         this.statusTime = statusTime;
     }
 

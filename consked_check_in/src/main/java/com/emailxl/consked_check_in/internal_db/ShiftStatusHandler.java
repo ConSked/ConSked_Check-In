@@ -69,6 +69,7 @@ public class ShiftStatusHandler {
             changeLog.setSource("local");
             changeLog.setOperation("create");
             changeLog.setTableName("shiftstatus");
+            changeLog.setJson(null);
             changeLog.setIdInt((int) lastPathSegment);
             changeLog.setIdExt(0);
             changeLog.setDone(0);
@@ -185,8 +186,51 @@ public class ShiftStatusHandler {
             changeLog.setSource("local");
             changeLog.setOperation("update");
             changeLog.setTableName("shiftstatus");
+            changeLog.setJson(null);
             changeLog.setIdInt(shiftstatus.getIdInt());
-            changeLog.setIdExt(0);
+            changeLog.setIdExt(shiftstatus.getShiftstatusIdExt());
+            changeLog.setDone(0);
+
+            dbc.addChangeLog(changeLog);
+        }
+
+        return rowsUpdated;
+    }
+
+    /**
+     * Method for updating a specific shiftstatus by the external MySQL id
+     *
+     * @param shiftstatus The shiftstatus object for the shiftstatus to be updated.
+     * @param log equals 1 if change should be logged, 0 otherwise.
+     * @return The number of rows updated.
+     */
+    public int updateShiftStatusIdExt(ShiftStatusInt shiftstatus, int log) {
+
+        ContentValues values = new ContentValues();
+
+        values.put(ConSkedCheckInProvider.SHIFTSTATUSIDEXT, shiftstatus.getShiftstatusIdExt());
+        values.put(ConSkedCheckInProvider.WORKERIDEXT, shiftstatus.getWorkerIdExt());
+        values.put(ConSkedCheckInProvider.STATIONIDEXT, shiftstatus.getStationIdExt());
+        values.put(ConSkedCheckInProvider.EXPOIDEXT, shiftstatus.getExpoIdExt());
+        values.put(ConSkedCheckInProvider.STATUSTYPE, shiftstatus.getStatusType());
+        values.put(ConSkedCheckInProvider.STATUSTIME, shiftstatus.getStatusTime());
+
+        String selection = ConSkedCheckInProvider.SHIFTSTATUSIDEXT + " = ?";
+        String[] selectionArgs = {Integer.toString(shiftstatus.getIdInt())};
+
+        int rowsUpdated = context.getContentResolver().update(uri, values, selection, selectionArgs);
+
+        if (log == 1) {
+            ChangeLogHandler dbc = new ChangeLogHandler(context);
+            ChangeLogInt changeLog = new ChangeLogInt();
+
+            changeLog.setTimestamp(System.currentTimeMillis());
+            changeLog.setSource("local");
+            changeLog.setOperation("update");
+            changeLog.setTableName("shiftstatus");
+            changeLog.setJson(null);
+            changeLog.setIdInt(shiftstatus.getIdInt());
+            changeLog.setIdExt(shiftstatus.getShiftstatusIdExt());
             changeLog.setDone(0);
 
             dbc.addChangeLog(changeLog);

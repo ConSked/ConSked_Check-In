@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".Loading"/>
         <activity android:name=".Stations"/>
+        <activity android:name=".Workers"/>
 
         <provider
             android:name=".internal_db.ConSkedCheckInProvider"
@@ -43,6 +44,7 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator"/>
         </service>
+
         <service
             android:name=".external_db.SyncService"
             android:exported="false">
@@ -57,8 +59,20 @@
                 android:resource="@xml/syncadapter"/>
         </service>
 
-        <activity android:name=".Workers">
-        </activity>
+        <service
+            android:name=".external_db.MessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".external_db.InstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

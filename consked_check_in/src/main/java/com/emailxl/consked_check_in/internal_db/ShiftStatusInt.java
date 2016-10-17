@@ -17,7 +17,7 @@ public class ShiftStatusInt {
     public ShiftStatusInt() {
     }
 
-    public ShiftStatusInt(int idInt, int shiftstatusIdExt,
+    ShiftStatusInt(int idInt, int shiftstatusIdExt,
                           int workerIdExt, int stationIdExt, int expoIdExt,
                           String statusType, String statusTime) {
         this.idInt = idInt;
@@ -39,7 +39,7 @@ public class ShiftStatusInt {
     }
 
     // shiftstatusIdExt functions
-    public int getShiftstatusIdExt() {
+    int getShiftstatusIdExt() {
         return this.shiftstatusIdExt;
     }
 

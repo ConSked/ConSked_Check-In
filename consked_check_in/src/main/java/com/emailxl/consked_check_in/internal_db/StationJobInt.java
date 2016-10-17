@@ -18,7 +18,7 @@ public class StationJobInt {
     public StationJobInt() {
     }
 
-    public StationJobInt(int idInt, int stationIdExt, int expoIdExt, String startTime, String stopTime,
+    StationJobInt(int idInt, int stationIdExt, int expoIdExt, String startTime, String stopTime,
                          String stationTitle, String location) {
         this.idInt = idInt;
         this.stationIdExt = stationIdExt;
@@ -88,9 +88,9 @@ public class StationJobInt {
         return this.location;
     }
 
-    public void setLocation(String location) {
+    /*public void setLocation(String location) {
         this.location = location;
-    }
+    }*/
 
 
     @Override

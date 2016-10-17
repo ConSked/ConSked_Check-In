@@ -19,13 +19,13 @@ import static com.emailxl.consked_check_in.utils.Utils.readStream;
  * @author ECG
  */
 
-public class ShiftStatusAPI {
+class ShiftStatusAPI {
 
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "ShiftStatus/";
     private static final String TAG = "ShiftStatusAPI";
     private static final boolean LOG = false;
 
-    public static int createShiftStatus(ShiftStatusExt params) {
+    static int createShiftStatus(ShiftStatusExt params) {
 
         InputStream is = null;
         int output = 0;
@@ -66,7 +66,7 @@ public class ShiftStatusAPI {
         return output;
     }
 
-    public static ShiftStatusExt[] readShiftStatus(int expoIdExt, int stationIdExt, int workerIdExt) {
+    static ShiftStatusExt[] readShiftStatus(int expoIdExt, int stationIdExt, int workerIdExt) {
 
         String stringUrl = SERVER_URL + "Search/";
 
@@ -138,12 +138,12 @@ public class ShiftStatusAPI {
         for (int i = 0; i < len; i++) {
             JSONObject json = jArray.getJSONObject(i);
 
-            int jshiftstatusid = json.has("shiftstatusid") ? json.getInt("shiftstatusid") : 0;
-            int jworkerid = json.has("workerid") ? json.getInt("workerid") : 0;
-            int jstationid = json.has("stationid") ? json.getInt("stationid") : 0;
-            int jexpoid = json.has("expoid") ? json.getInt("expoid") : 0;
-            String jstatusType = json.has("statusType") ? json.getString("statusType") : null;
-            JSONObject jStatusTime = json.has("statusTime") ? json.getJSONObject("statusTime") : null;
+            int jshiftstatusid = json.optInt("shiftstatusid");
+            int jworkerid = json.optInt("workerid");
+            int jstationid = json.optInt("stationid");
+            int jexpoid = json.optInt("expoid");
+            String jstatusType = json.optString("statusType");
+            JSONObject jStatusTime = json.optJSONObject("statusTime");
 
             ShiftStatusExt shiftstatus = new ShiftStatusExt();
             shiftstatus.setShiftstatusIdExt(jshiftstatusid);

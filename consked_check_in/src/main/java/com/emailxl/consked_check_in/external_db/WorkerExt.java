@@ -4,7 +4,7 @@ package com.emailxl.consked_check_in.external_db;
  * @author ECG
  */
 
-public class WorkerExt {
+class WorkerExt {
     private int workerIdExt;
     private int isDisabled;
     private String lastLoginTime;
@@ -20,10 +20,10 @@ public class WorkerExt {
     private String authrole;
 
     // Constructors
-    public WorkerExt() {
+    WorkerExt() {
     }
 
-    public WorkerExt(int workerIdExt, int isDisabled, String lastLoginTime, String phone, String email,
+    /*public WorkerExt(int workerIdExt, int isDisabled, String lastLoginTime, String phone, String email,
                      String smsemail, String passwordHash, String resetCodeHash, String firstName,
                      String middleName, String lastName, String externalAuthentication,
                      String authrole) {
@@ -40,7 +40,7 @@ public class WorkerExt {
         this.lastName = lastName;
         this.externalAuthentication = externalAuthentication;
         this.authrole = authrole;
-    }
+    }*/
 
     // workerIdExt functions
     public int getWorkerIdExt() {
@@ -52,110 +52,110 @@ public class WorkerExt {
     }
 
     // isDisabled functions
-    public int getIsDisabled() {
+    /*public int getIsDisabled() {
         return this.isDisabled;
-    }
+    }*/
 
-    public void setIsDisabled(int isDisabled) {
+    void setIsDisabled(int isDisabled) {
         this.isDisabled = isDisabled;
     }
 
     // lastLoginTime functions
-    public String getLastLoginTime() {
+    /*public String getLastLoginTime() {
         return this.lastLoginTime;
-    }
+    }*/
 
-    public void setLastLoginTime(String lastLoginTime) {
+    void setLastLoginTime(String lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 
     // phone functions
-    public String getPhone() {
+    /*public String getPhone() {
         return this.phone;
-    }
+    }*/
 
-    public void setPhone(String phone) {
+    void setPhone(String phone) {
         this.phone = phone;
     }
 
     // email functions
-    public String getEmail() {
+    /*public String getEmail() {
         return this.email;
-    }
+    }*/
 
     public void setEmail(String email) {
         this.email = email;
     }
 
     // smsemail functions
-    public String getSmsemail() {
+    /*public String getSmsemail() {
         return this.smsemail;
-    }
+    }*/
 
-    public void setSmsemail(String smsemail) {
+    void setSmsemail(String smsemail) {
         this.smsemail = smsemail;
     }
 
     // passwordHash functions
-    public String getPasswordHash() {
+    /*public String getPasswordHash() {
         return this.passwordHash;
-    }
+    }*/
 
-    public void setPasswordHash(String passwordHash) {
+    void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
 
     // resetCodeHash functions
-    public String getResetCodeHash() {
+    /*public String getResetCodeHash() {
         return this.resetCodeHash;
-    }
+    }*/
 
-    public void setResetCodeHash(String resetCodeHash) {
+    void setResetCodeHash(String resetCodeHash) {
         this.resetCodeHash = resetCodeHash;
     }
 
     // firstName functions
-    public String getFirstName() {
+    String getFirstName() {
         return this.firstName;
     }
 
-    public void setFirstName(String firstName) {
+    void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     // middleName functions
-    public String getMiddleName() {
+    /*public String getMiddleName() {
         return this.middleName;
-    }
+    }*/
 
-    public void setMiddleName(String middleName) {
+    void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
 
     // lastName functions
-    public String getLastName() {
+    String getLastName() {
         return this.lastName;
     }
 
-    public void setLastName(String lastName) {
+    void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
     // externalAuthentication functions
-    public String getExternalAuthentication() {
+    /*public String getExternalAuthentication() {
         return this.externalAuthentication;
-    }
+    }*/
 
-    public void setExternalAuthentication(String externalAuthentication) {
+    void setExternalAuthentication(String externalAuthentication) {
         this.externalAuthentication = externalAuthentication;
     }
 
     // authrole functions
-    public String getAuthrole() {
+    String getAuthrole() {
         return this.authrole;
     }
 
-    public void setAuthrole(String authrole) {
+    void setAuthrole(String authrole) {
         this.authrole = authrole;
     }
 

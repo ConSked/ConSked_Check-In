@@ -15,7 +15,7 @@ public class ShiftAssignmentInt {
     public ShiftAssignmentInt() {
     }
 
-    public ShiftAssignmentInt(int idInt, int workerIdExt, int jobIdExt, int stationIdExt, int expoIdExt) {
+    ShiftAssignmentInt(int idInt, int workerIdExt, int jobIdExt, int stationIdExt, int expoIdExt) {
         this.idInt = idInt;
         this.workerIdExt = workerIdExt;
         this.jobIdExt = jobIdExt;
@@ -42,7 +42,7 @@ public class ShiftAssignmentInt {
     }
 
     // jobIdExt functions
-    public int getJobIdExt() {
+    int getJobIdExt() {
         return this.jobIdExt;
     }
 

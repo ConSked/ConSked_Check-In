@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.emailxl.consked_check_in.Loading;
 import com.emailxl.consked_check_in.Stations;
+import com.emailxl.consked_check_in.Workers;
 import com.emailxl.consked_check_in.internal_db.ChangeLogHandler;
 import com.emailxl.consked_check_in.internal_db.ChangeLogInt;
 import com.emailxl.consked_check_in.internal_db.ExpoHandler;
@@ -24,6 +25,9 @@ import com.emailxl.consked_check_in.internal_db.StationJobHandler;
 import com.emailxl.consked_check_in.internal_db.StationJobInt;
 import com.emailxl.consked_check_in.internal_db.WorkerHandler;
 import com.emailxl.consked_check_in.internal_db.WorkerInt;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,14 +50,14 @@ import static com.emailxl.consked_check_in.external_db.WorkerAPI.searchWorker;
  *
  * @author ECG
  */
-public class SyncAdapter extends AbstractThreadedSyncAdapter {
+class SyncAdapter extends AbstractThreadedSyncAdapter {
     private static final String TAG = "SyncAdapter";
     private static final boolean LOG = true;
 
     private ContentResolver mContentResolver;
     private Context mContext;
 
-    public SyncAdapter(Context context, boolean autoInitialize) {
+    SyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
 
         mContentResolver = context.getContentResolver();
@@ -95,7 +99,12 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     if ("local".equals(changeLog.getSource())) {
                         if ("shiftstatus".equals(changeLog.getTableName())) {
 
-                            syncShiftStatusExt(changeLog, dbc);
+                            syncShiftStatusExtLocal(changeLog, dbc);
+                        }
+                    } else if ("remote".equals(changeLog.getSource())) {
+                        if ("shiftstatus".equals(changeLog.getTableName())) {
+
+                            syncShiftStatusExtRemote(changeLog, dbc);
                         }
                     }
                 }
@@ -252,9 +261,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         mContext.sendBroadcast(new Intent(Stations.ACTION_FINISHED_SYNC));
     }
 
-    private void syncShiftStatusExt(ChangeLogInt changeLog, ChangeLogHandler dbc) {
+    private void syncShiftStatusExtLocal(ChangeLogInt changeLog, ChangeLogHandler dbc) {
 
-        if (LOG) Log.i(TAG, "ShiftStatus");
+        if (LOG) Log.i(TAG, "ShiftStatusExtLocal");
         ShiftStatusHandler dbs = new ShiftStatusHandler(mContext);
         ShiftStatusInt shiftStatusInt = dbs.getShiftStatusIdInt(changeLog.getIdInt());
 
@@ -285,7 +294,46 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             changeLog.setDone(1);
             dbc.updateChangeLogTimestamp(changeLog);
         } else {
-            if (LOG) Log.e(TAG, "syncShiftStatusExt Fail");
+            if (LOG) Log.e(TAG, "syncShiftStatusExtLocal Fail");
         }
+    }
+
+    private void syncShiftStatusExtRemote(ChangeLogInt changeLog, ChangeLogHandler dbc) {
+
+        if (LOG) Log.i(TAG, "ShiftStatusExtRemote");
+
+        ShiftStatusInt shiftstatus = new ShiftStatusInt();
+        try {
+            JSONObject json = new JSONObject(changeLog.getJson());
+
+            shiftstatus.setShiftstatusIdExt(json.optInt("shiftstatusid"));
+            shiftstatus.setWorkerIdExt(json.optInt("workerid"));
+            shiftstatus.setStationIdExt(json.optInt("stationid"));
+            shiftstatus.setExpoIdExt(json.optInt("expoid"));
+            shiftstatus.setStatusType(json.optString("statusType"));
+
+            JSONObject json_statusTime = new JSONObject(json.optString("statusTime"));
+
+            shiftstatus.setStatusTime(json_statusTime.optString("date"));
+
+        } catch (JSONException e) {
+            if (LOG) Log.e(TAG, "JSON error");
+        }
+
+        String operation = changeLog.getOperation();
+        ShiftStatusHandler dbs = new ShiftStatusHandler(mContext);
+        if ("create".equals(operation)) {
+
+            dbs.addShiftStatus(shiftstatus, 0);
+
+        } else if ("update".equals(operation)) {
+
+            dbs.updateShiftStatusIdExt(shiftstatus, 0);
+        }
+
+        changeLog.setDone(1);
+        dbc.updateChangeLogTimestamp(changeLog);
+
+        mContext.sendBroadcast(new Intent(Workers.ACTION_FINISHED_SYNC));
     }
 }

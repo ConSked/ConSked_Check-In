@@ -17,13 +17,13 @@ import static com.emailxl.consked_check_in.utils.Utils.readStream;
  * @author ECG
  */
 
-public class StationJobAPI {
+class StationJobAPI {
 
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "StationJob/";
     private static final String TAG = "StationJobAPI";
     private static final boolean LOG = false;
 
-    public static StationJobExt[] readStationJob(int id) {
+    /*public static StationJobExt[] readStationJob(int id) {
 
         String stringUrl = SERVER_URL;
 
@@ -59,9 +59,9 @@ public class StationJobAPI {
         }
 
         return output;
-    }
+    }*/
 
-    public static StationJobExt[] searchStationJob(int expoId) {
+    static StationJobExt[] searchStationJob(int expoId) {
 
         String stringUrl = SERVER_URL + "Search/" + expoId;
 
@@ -105,23 +105,23 @@ public class StationJobAPI {
         for (int i = 0; i < len; i++) {
             JSONObject json = jArray.getJSONObject(i);
 
-            int jstationid = json.has("stationid") ? json.getInt("stationid") : 0;
-            int jexpoid = json.has("expoid") ? json.getInt("expoid") : 0;
-            JSONObject jstartTime = json.has("startTime") ? json.getJSONObject("startTime") : null;
-            JSONObject jstopTime = json.has("stopTime") ? json.getJSONObject("stopTime") : null;
-            String jstationTitle = json.has("title") ? json.getString("title") : null;
-            String jdescription = json.has("description") ? json.getString("description") : null;
-            String jlocation = json.has("location") ? json.getString("location") : null;
-            String jURL = json.has("URL") ? json.getString("URL") : null;
-            String jinstruction = json.has("instruction") ? json.getString("instruction") : null;
-            int jjobid = json.has("jobid") ? json.getInt("jobid") : 0;
-            String jjobTitle = json.has("jobTitle") ? json.getString("jobTitle") : null;
-            int jmaxCrew = json.has("maxCrew") ? json.getInt("maxCrew") : 0;
-            int jminCrew = json.has("minCrew") ? json.getInt("minCrew") : 0;
-            int jassignedCrew = json.has("assignedCrew") ? json.getInt("assignedCrew") : 0;
-            int jmaxSupervisor = json.has("maxSupervisor") ? json.getInt("maxSupervisor") : 0;
-            int jminSupervisor = json.has("minSupervisor") ? json.getInt("minSupervisor") : 0;
-            int jassignedSupervisor = json.has("assignedSupervisor") ? json.getInt("assignedSupervisor") : 0;
+            int jstationid = json.optInt("stationid");
+            int jexpoid = json.optInt("expoid");
+            JSONObject jstartTime = json.optJSONObject("startTime");
+            JSONObject jstopTime = json.optJSONObject("stopTime");
+            String jstationTitle = json.optString("title");
+            String jdescription = json.optString("description");
+            String jlocation = json.optString("location");
+            String jURL = json.optString("URL");
+            String jinstruction = json.optString("instruction");
+            int jjobid = json.optInt("jobid");
+            String jjobTitle = json.optString("jobTitle");
+            int jmaxCrew = json.optInt("maxCrew");
+            int jminCrew = json.optInt("minCrew");
+            int jassignedCrew = json.optInt("assignedCrew");
+            int jmaxSupervisor = json.optInt("maxSupervisor");
+            int jminSupervisor = json.optInt("minSupervisor");
+            int jassignedSupervisor = json.optInt("assignedSupervisor");
 
 
             StationJobExt stationjob = new StationJobExt();

@@ -5,10 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.emailxl.consked_check_in.external_db.WorkerLoginAPI;
 import com.emailxl.consked_check_in.external_db.WorkerLoginExt;
-
-import org.json.JSONObject;
 
 import static com.emailxl.consked_check_in.external_db.WorkerLoginAPI.WorkerLogin;
 

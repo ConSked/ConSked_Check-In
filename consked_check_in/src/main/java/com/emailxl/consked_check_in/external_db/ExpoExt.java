@@ -4,7 +4,7 @@ package com.emailxl.consked_check_in.external_db;
  * @author ECG
  */
 
-public class ExpoExt {
+class ExpoExt {
     private int expIdExt;
     private Timestamp startTime;
     private Timestamp stopTime;
@@ -18,13 +18,13 @@ public class ExpoExt {
     private int workerIdExt;
 
     // Constructors
-    public ExpoExt() {
+    ExpoExt() {
     }
 
-    public ExpoExt(int expIdExt, Timestamp startTime, Timestamp stopTime, int expoHourCeiling,
-                   String title, String description, int scheduleAssignAsYouGo,
-                   int scheduleVisible, int allowScheduleTimeConflict,
-                   int newUserAddedOnRegistration, int workerIdExt) {
+    /*ExpoExt(int expIdExt, Timestamp startTime, Timestamp stopTime, int expoHourCeiling,
+            String title, String description, int scheduleAssignAsYouGo,
+            int scheduleVisible, int allowScheduleTimeConflict,
+            int newUserAddedOnRegistration, int workerIdExt) {
          this.expIdExt = expIdExt;
          this.startTime = startTime;
          this.stopTime = stopTime;
@@ -36,7 +36,7 @@ public class ExpoExt {
          this.allowScheduleTimeConflict = allowScheduleTimeConflict;
          this.newUserAddedOnRegistration = newUserAddedOnRegistration;
          this.workerIdExt = workerIdExt;
-    }
+    }*/
 
     // expIdExt functions
     public int getExpoIdExt() {
@@ -66,11 +66,11 @@ public class ExpoExt {
     }
 
     // expoHourCeiling functions
-    public int getExpoHourCeiling() {
+    /*public int getExpoHourCeiling() {
         return this.expoHourCeiling;
-    }
+    }*/
 
-    public void setExpoHourCeiling(int expoHourCeiling) {
+    void setExpoHourCeiling(int expoHourCeiling) {
         this.expoHourCeiling = expoHourCeiling;
     }
 
@@ -84,47 +84,47 @@ public class ExpoExt {
     }
 
     // description functions
-    public String getDescription() {
+    /*public String getDescription() {
         return this.description;
-    }
+    }*/
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
     // scheduleAssignAsYouGo functions
-    public int getScheduleAssignAsYouGo() {
+    /*public int getScheduleAssignAsYouGo() {
         return this.scheduleAssignAsYouGo;
-    }
+    }*/
 
-    public void setScheduleAssignAsYouGo(int scheduleAssignAsYouGo) {
+    void setScheduleAssignAsYouGo(int scheduleAssignAsYouGo) {
         this.scheduleAssignAsYouGo = scheduleAssignAsYouGo;
     }
 
     // scheduleVisible functions
-    public int getScheduleVisible() {
+    /*public int getScheduleVisible() {
         return this.scheduleVisible;
-    }
+    }*/
 
-    public void setScheduleVisible(int scheduleVisible) {
+    void setScheduleVisible(int scheduleVisible) {
         this.scheduleVisible = scheduleVisible;
     }
 
     // allowScheduleTimeConflict functions
-    public int getAllowScheduleTimeConflic() {
+    /*public int getAllowScheduleTimeConflic() {
         return this.allowScheduleTimeConflict;
-    }
+    }*/
 
-    public void setAllowScheduleTimeConflict(int allowScheduleTimeConflict) {
+    void setAllowScheduleTimeConflict(int allowScheduleTimeConflict) {
         this.allowScheduleTimeConflict = allowScheduleTimeConflict;
     }
 
     // newUserAddedOnRegistration functions
-    public int getNewUserAddedOnRegistration() {
+    /*public int getNewUserAddedOnRegistration() {
         return this.newUserAddedOnRegistration;
-    }
+    }*/
 
-    public void setNewUserAddedOnRegistration(int newUserAddedOnRegistration) {
+    void setNewUserAddedOnRegistration(int newUserAddedOnRegistration) {
         this.newUserAddedOnRegistration = newUserAddedOnRegistration;
     }
 

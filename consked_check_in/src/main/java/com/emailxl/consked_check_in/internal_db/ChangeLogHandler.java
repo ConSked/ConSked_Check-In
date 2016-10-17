@@ -51,6 +51,7 @@ public class ChangeLogHandler {
         values.put(ConSkedCheckInProvider.SOURCE, changeLog.getSource());
         values.put(ConSkedCheckInProvider.OPERATION, changeLog.getOperation());
         values.put(ConSkedCheckInProvider.TABLENAME, changeLog.getTableName());
+        values.put(ConSkedCheckInProvider.JSON, changeLog.getJson());
         values.put(ConSkedCheckInProvider.IDINT, changeLog.getIdInt());
         values.put(ConSkedCheckInProvider.IDEXT, changeLog.getIdExt());
         values.put(ConSkedCheckInProvider.DONE, changeLog.getDone());
@@ -70,7 +71,7 @@ public class ChangeLogHandler {
      *
      * @return The list of all changeLog objects.
      */
-    public List<ChangeLogInt> getAllChangeLogs() {
+    /*public List<ChangeLogInt> getAllChangeLogs() {
 
         String sortOrder = ConSkedCheckInProvider.TIMESTAMP + " ASC";
 
@@ -85,9 +86,10 @@ public class ChangeLogHandler {
                             cursor.getString(1),    // source
                             cursor.getString(2),    // operation
                             cursor.getString(3),    // tableName
-                            cursor.getInt(4),       // idInt
-                            cursor.getInt(5),       // idExt
-                            cursor.getInt(6));      // done
+                            cursor.getString(4),    // json
+                            cursor.getInt(5),       // idInt
+                            cursor.getInt(6),       // idExt
+                            cursor.getInt(7));      // done
 
                     changeLogList.add(changeLog);
                 } while (cursor.moveToNext());
@@ -96,7 +98,7 @@ public class ChangeLogHandler {
             cursor.close();
         }
         return changeLogList;
-    }
+    }*/
 
     /**
      * Method to retrieve the active changeLog entries
@@ -120,9 +122,10 @@ public class ChangeLogHandler {
                             cursor.getString(1),    // source
                             cursor.getString(2),    // operation
                             cursor.getString(3),    // tableName
-                            cursor.getInt(4),       // idInt
-                            cursor.getInt(5),       // idExt
-                            cursor.getInt(6));      // done
+                            cursor.getString(4),    // json
+                            cursor.getInt(5),       // idInt
+                            cursor.getInt(6),       // idExt
+                            cursor.getInt(7));      // done
 
                     changeLogList.add(changeLog);
                 } while (cursor.moveToNext());
@@ -139,7 +142,7 @@ public class ChangeLogHandler {
      * @param timestamp The timestamp of the changeLog entry to be retrieved.
      * @return The changeLog object for the specified timestamp.
      */
-    public ChangeLogInt getChangeLogTimestamp(long timestamp) {
+    /*public ChangeLogInt getChangeLogTimestamp(long timestamp) {
 
         String selection = ConSkedCheckInProvider.TIMESTAMP + " = ?";
         String[] selectionArgs = {Long.toString(timestamp)};
@@ -155,15 +158,16 @@ public class ChangeLogHandler {
                         cursor.getString(1),    // source
                         cursor.getString(2),    // operation
                         cursor.getString(3),    // tableName
-                        cursor.getInt(4),       // idInt
-                        cursor.getInt(5),       // idExt
-                        cursor.getInt(6));      // done
+                        cursor.getString(4),    // json
+                        cursor.getInt(5),       // idInt
+                        cursor.getInt(6),       // idExt
+                        cursor.getInt(7));      // done
             }
 
             cursor.close();
         }
         return changeLog;
-    }
+    }*/
 
     /**
      * Method for updating a specific changeLog entry by tiemstamp
@@ -179,6 +183,7 @@ public class ChangeLogHandler {
         values.put(ConSkedCheckInProvider.SOURCE, changeLog.getSource());
         values.put(ConSkedCheckInProvider.OPERATION, changeLog.getOperation());
         values.put(ConSkedCheckInProvider.TABLENAME, changeLog.getTableName());
+        values.put(ConSkedCheckInProvider.JSON, changeLog.getJson());
         values.put(ConSkedCheckInProvider.IDINT, changeLog.getIdInt());
         values.put(ConSkedCheckInProvider.IDEXT, changeLog.getIdExt());
         values.put(ConSkedCheckInProvider.DONE, changeLog.getDone());
@@ -197,7 +202,7 @@ public class ChangeLogHandler {
      * @param timestamp The timestamp of the changeLog entry to be deleted.
      * @return The number of rows deleted.
      */
-    public int deleteChangeLogTimestamp(long timestamp) {
+    /*public int deleteChangeLogTimestamp(long timestamp) {
 
         String selection = ConSkedCheckInProvider.TIMESTAMP + " = ?";
         String[] selectionArgs = {Long.toString(timestamp)};
@@ -205,17 +210,17 @@ public class ChangeLogHandler {
         int count = context.getContentResolver().delete(uri, selection, selectionArgs);
         context.getContentResolver().notifyChange(uri, null);
         return count;
-    }
+    }*/
 
     /**
      * Method for deleting all changeLog entries.
      *
      * @return The number of rows deleted.
      */
-    public int deleteChangeLogAll() {
+    /*public int deleteChangeLogAll() {
 
         int count = context.getContentResolver().delete(uri, null, null);
         context.getContentResolver().notifyChange(uri, null);
         return count;
-    }
+    }*/
 }

@@ -10,7 +10,8 @@ public class ChangeLogInt {
     private long timestamp;
     private String source;      // "local" or "remote"
     private String operation;   // "create", "update" or "delete"
-    private String tableName;   // "attendee", "event", "member", "organization" or "user"
+    private String tableName;   // "expo", "shiftassignment", "shiftstatus", "station" or "worker"
+    private String json;        // JSON encoded data
     private int idInt;
     private int idExt;
     private int done;
@@ -19,19 +20,20 @@ public class ChangeLogInt {
     public ChangeLogInt() {
     }
 
-    public ChangeLogInt(long timestamp, String source, String operation, String tableName,
+    ChangeLogInt(long timestamp, String source, String operation, String tableName, String json,
                         int idInt, int idExt, int done) {
         this.timestamp = timestamp;
         this.source = source;
         this.operation = operation;
         this.tableName = tableName;
+        this.json = json;
         this.idInt = idInt;
         this.idExt = idExt;
         this.done = done;
     }
 
     // timestamp functions
-    public long getTimestamp() {
+    long getTimestamp() {
         return this.timestamp;
     }
 
@@ -66,6 +68,15 @@ public class ChangeLogInt {
         this.tableName = tableName;
     }
 
+    // json functions
+    public String getJson() {
+        return this.json;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
+    }
+
     // idInt functions
     public int getIdInt() {
         return this.idInt;
@@ -76,7 +87,7 @@ public class ChangeLogInt {
     }
 
     // idExt functions
-    public int getIdExt() {
+    int getIdExt() {
         return this.idExt;
     }
 
@@ -85,7 +96,7 @@ public class ChangeLogInt {
     }
 
     // done functions
-    public int getDone() {
+    int getDone() {
         return this.done;
     }
 
@@ -100,6 +111,7 @@ public class ChangeLogInt {
                 "source=" + source + ", " +
                 "operation=" + operation + ", " +
                 "tableName=" + tableName + ", " +
+                "json=" + json + ", " +
                 "idInt=" + idInt + ", " +
                 "idExt=" + idExt + ", " +
                 "done=" + done + ", " + "]";

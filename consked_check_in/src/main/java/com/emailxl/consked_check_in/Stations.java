@@ -37,7 +37,7 @@ import static com.emailxl.consked_check_in.utils.Utils.toastError;
 public class Stations extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String ACTION_FINISHED_SYNC = "com.emailxl.consked_check_in.ACTION_FINISHED_SYNC";
     private static final String TAG = "Stations";
-    private static boolean LOG = false;
+    private static final boolean LOG = false;
 
     SharedPreferences prefs;
     private int expoIdActive;

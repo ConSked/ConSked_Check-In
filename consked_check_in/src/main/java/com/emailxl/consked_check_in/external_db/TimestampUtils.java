@@ -6,13 +6,13 @@ import org.json.JSONObject;
  * @author ECG
  */
 
-public class TimestampUtils {
+class TimestampUtils {
 
     static Timestamp loadTimestamp(JSONObject json) throws Exception {
 
-        String jdate = json.has("date") ? json.getString("date") : null;
-        int jtimezoneType = json.has("timezone_type") ? json.getInt("timezone_type") : 0;
-        String jtimezone = json.has("timezone") ? json.getString("timezone") : null;
+        String jdate = json.optString("date");
+        int jtimezoneType = json.optInt("timezone_type");
+        String jtimezone = json.optString("timezone");
 
         return new Timestamp(jdate, jtimezoneType, jtimezone);
     }

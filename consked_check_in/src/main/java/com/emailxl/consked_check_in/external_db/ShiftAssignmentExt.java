@@ -4,22 +4,22 @@ package com.emailxl.consked_check_in.external_db;
  * @author ECG
  */
 
-public class ShiftAssignmentExt {
+class ShiftAssignmentExt {
     private int workerIdExt;
     private int jobIdExt;
     private int stationIdExt;
     private int expoIdExt;
 
     // Constructors
-    public ShiftAssignmentExt() {
+    ShiftAssignmentExt() {
     }
 
-    public ShiftAssignmentExt(int workerIdExt, int jobIdExt, int stationIdExt, int expoIdExt) {
+    /*public ShiftAssignmentExt(int workerIdExt, int jobIdExt, int stationIdExt, int expoIdExt) {
         this.workerIdExt = workerIdExt;
         this.jobIdExt = jobIdExt;
         this.stationIdExt = stationIdExt;
         this.expoIdExt = expoIdExt;
-    }
+    }*/
 
     // workerIdExt functions
     public int getWorkerIdExt() {
@@ -31,11 +31,11 @@ public class ShiftAssignmentExt {
     }
 
     // jobIdExt functions
-    public int getJobIdExt() {
+    int getJobIdExt() {
         return this.jobIdExt;
     }
 
-    public void setJobIdExt(int jobIdExt) {
+    void setJobIdExt(int jobIdExt) {
         this.jobIdExt = jobIdExt;
     }
 

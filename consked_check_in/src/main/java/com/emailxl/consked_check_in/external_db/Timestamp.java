@@ -4,45 +4,45 @@ package com.emailxl.consked_check_in.external_db;
  * @author ECG
  */
 
-public class Timestamp {
+class Timestamp {
     private String date;
     private int timezoneType;
     private String timezone;
 
     // Constructors
-    public Timestamp() {
+    Timestamp() {
     }
 
-    public Timestamp(String date, int timezoneType, String timezone) {
+    Timestamp(String date, int timezoneType, String timezone) {
         this.date = date;
         this.timezoneType = timezoneType;
         this.timezone = timezone;
     }
 
     // date functions
-    public String getDate() {
+    String getDate() {
         return this.date;
     }
 
-    public void setDate(String date) {
+    void setDate(String date) {
         this.date = date;
     }
 
     // timezoneType functions
-    public int getTimezoneType() {
+    /*public int getTimezoneType() {
         return this.timezoneType;
-    }
+    }*/
 
-    public void setTimezoneType(int timezoneType) {
+    void setTimezoneType(int timezoneType) {
         this.timezoneType = timezoneType;
     }
 
     // timezone functions
-    public String getTimezone() {
+    /*public String getTimezone() {
         return this.timezone;
-    }
+    }*/
 
-    public void setTimezone(String timezone) {
+    void setTimezone(String timezone) {
         this.timezone = timezone;
     }
 

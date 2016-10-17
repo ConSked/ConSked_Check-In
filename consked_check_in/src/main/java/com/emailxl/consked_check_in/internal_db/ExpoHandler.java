@@ -68,6 +68,7 @@ public class ExpoHandler {
             changeLog.setSource("local");
             changeLog.setOperation("create");
             changeLog.setTableName("expo");
+            changeLog.setJson(null);
             changeLog.setIdInt((int) lastPathSegment);
             changeLog.setIdExt(0);
             changeLog.setDone(0);

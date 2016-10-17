@@ -63,6 +63,7 @@ public class WorkerHandler {
             changeLog.setSource("local");
             changeLog.setOperation("create");
             changeLog.setTableName("worker");
+            changeLog.setJson(null);
             changeLog.setIdInt((int) lastPathSegment);
             changeLog.setIdExt(0);
             changeLog.setDone(0);

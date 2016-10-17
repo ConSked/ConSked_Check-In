@@ -1,6 +1,7 @@
 package com.emailxl.consked_check_in.utils;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +21,11 @@ public class StationJobAdapter extends ArrayAdapter<StationJobInt> {
     private LayoutInflater mInflater;
     private List<StationJobInt> mStationJobInts;
     private int mViewResourceId;
-    private Context mContext;
 
     public StationJobAdapter(Context context, int viewResourceId, List<StationJobInt> stationJobInts) {
         super(context, viewResourceId, stationJobInts);
 
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mContext = context;
         mViewResourceId = viewResourceId;
         mStationJobInts = stationJobInts;
     }
@@ -47,7 +46,7 @@ public class StationJobAdapter extends ArrayAdapter<StationJobInt> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public @NonNull View getView(int position, View convertView, @NonNull ViewGroup parent) {
         ViewHolder holder;
 
         if (convertView == null) {
@@ -78,9 +77,9 @@ public class StationJobAdapter extends ArrayAdapter<StationJobInt> {
     }
 
     private static class ViewHolder {
-        public TextView tvStationJobShift;
-        public TextView tvStationJobLocation;
-        public TextView tvStationJobDate;
-        public TextView tvStationJobTime;
+        TextView tvStationJobShift;
+        TextView tvStationJobLocation;
+        TextView tvStationJobDate;
+        TextView tvStationJobTime;
     }
 }

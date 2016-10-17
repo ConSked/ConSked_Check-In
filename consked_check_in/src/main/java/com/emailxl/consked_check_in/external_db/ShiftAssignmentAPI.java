@@ -22,7 +22,7 @@ class ShiftAssignmentAPI {
     private static final String TAG = "ShiftAssignmentAPI";
     private static final boolean LOG = false;
 
-    public static ShiftAssignmentExt[] searchShiftAssignment(int expoIdExt, int workerIdExt) {
+    static ShiftAssignmentExt[] searchShiftAssignment(int expoIdExt, int workerIdExt) {
 
         String stringUrl = SERVER_URL;
 
@@ -74,10 +74,10 @@ class ShiftAssignmentAPI {
         for (int i = 0; i < len; i++) {
             JSONObject json = jArray.getJSONObject(i);
 
-            int workerIdExt = json.has("workerid") ? json.getInt("workerid") : 0;
-            int jobIdExt = json.has("jobid") ? json.getInt("jobid") : 0;
-            int stationIdExt = json.has("stationid") ? json.getInt("stationid") : 0;
-            int expoIdExt = json.has("expoid") ? json.getInt("expoid") : 0;
+            int workerIdExt = json.optInt("workerid");
+            int jobIdExt = json.optInt("jobid");
+            int stationIdExt = json.optInt("stationid");
+            int expoIdExt = json.optInt("expoid");
 
             ShiftAssignmentExt shiftassignment = new ShiftAssignmentExt();
             shiftassignment.setWorkerIdExt(workerIdExt);

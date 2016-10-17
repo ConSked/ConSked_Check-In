@@ -17,13 +17,13 @@ import static com.emailxl.consked_check_in.utils.Utils.readStream;
  * @author ECG
  */
 
-public class ExpoAPI {
+class ExpoAPI {
 
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "Expo/";
     private static final String TAG = "ExpoAPI";
     private static final boolean LOG = false;
 
-    public static ExpoExt[] readExpo(int id) {
+    /*public static ExpoExt[] readExpo(int id) {
 
         String stringUrl = SERVER_URL;
 
@@ -59,9 +59,9 @@ public class ExpoAPI {
         }
 
         return output;
-    }
+    }*/
 
-    public static ExpoExt[] searchExpo(int workerId) {
+    static ExpoExt[] searchExpo(int workerId) {
 
         String stringUrl = SERVER_URL + "Search/" + workerId;
 
@@ -105,17 +105,17 @@ public class ExpoAPI {
         for (int i = 0; i < len; i++) {
             JSONObject json = jArray.getJSONObject(i);
 
-            int jexpoid = json.has("expoid") ? json.getInt("expoid") : 0;
-            JSONObject jstartTime = json.has("startTime") ? json.getJSONObject("startTime") : null;
-            JSONObject jstopTime = json.has("stopTime") ? json.getJSONObject("stopTime") : null;
-            int jexpoHourCeiling = json.has("expoHourCeiling") ? json.getInt("expoHourCeiling") : 0;
-            String jtitle = json.has("title") ? json.getString("title") : null;
-            String jdescription = json.has("description") ? json.getString("description") : null;
-            boolean jscheduleAssignAsYouGo = json.has("scheduleAssignAsYouGo") || json.getBoolean("scheduleAssignAsYouGo");
-            boolean jscheduleVisible = json.has("scheduleVisible") || json.getBoolean("scheduleVisible");
-            boolean jallowScheduleTimeConflict = json.has("allowScheduleTimeConflict") || json.getBoolean("allowScheduleTimeConflict");
-            boolean jnewUserAddedOnRegistration = json.has("newUserAddedOnRegistration") || json.getBoolean("newUserAddedOnRegistration");
-            int jworkerid = json.has("workerid") ? json.getInt("workerid") : 0;
+            int jexpoid = json.optInt("expoid");
+            JSONObject jstartTime = json.optJSONObject("startTime");
+            JSONObject jstopTime = json.optJSONObject("stopTime");
+            int jexpoHourCeiling = json.optInt("expoHourCeiling");
+            String jtitle = json.optString("title");
+            String jdescription = json.optString("description");
+            boolean jscheduleAssignAsYouGo = json.optBoolean("scheduleAssignAsYouGo");
+            boolean jscheduleVisible = json.optBoolean("scheduleVisible");
+            boolean jallowScheduleTimeConflict = json.optBoolean("allowScheduleTimeConflict");
+            boolean jnewUserAddedOnRegistration = json.optBoolean("newUserAddedOnRegistration");
+            int jworkerid = json.optInt("workerid");
 
             ExpoExt expo = new ExpoExt();
             expo.setExpoIdExt(jexpoid);

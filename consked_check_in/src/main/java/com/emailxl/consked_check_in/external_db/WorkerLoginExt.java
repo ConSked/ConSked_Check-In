@@ -12,10 +12,10 @@ public class WorkerLoginExt {
     public WorkerLoginExt() {
     }
 
-    public WorkerLoginExt(String email, String password) {
+    /*public WorkerLoginExt(String email, String password) {
         this.email = email;
         this.password = password;
-    }
+    }*/
 
     // username functions
     public String getEmail() {
@@ -27,7 +27,7 @@ public class WorkerLoginExt {
     }
 
     // password functions
-    public String getPassword() {
+    String getPassword() {
         return this.password;
     }
 

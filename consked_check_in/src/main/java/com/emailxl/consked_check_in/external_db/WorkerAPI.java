@@ -17,13 +17,13 @@ import static com.emailxl.consked_check_in.utils.Utils.readStream;
  * @author ECG
  */
 
-public class WorkerAPI {
+class WorkerAPI {
 
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "Worker/";
     private static final String TAG = "WorkerAPI";
     private static final boolean LOG = false;
 
-    public static WorkerExt[] readWorker(int id) {
+    static WorkerExt[] readWorker(int id) {
 
         String stringUrl = SERVER_URL;
 
@@ -61,7 +61,7 @@ public class WorkerAPI {
         return output;
     }
 
-    public static WorkerExt[] searchWorker(String username) {
+    static WorkerExt[] searchWorker(String username) {
 
         String stringUrl = SERVER_URL + "Search/" + username;
 
@@ -105,19 +105,19 @@ public class WorkerAPI {
         for (int i = 0; i < len; i++) {
             JSONObject json = jArray.getJSONObject(i);
 
-            int jworkerid = json.has("workerid") ? json.getInt("workerid") : 0;
-            int jisDisabled = json.has("isDisabled") ? json.getInt("isDisabled") : 0;
-            String jlastLoginTime = json.has("lastLoginTime") ? json.getString("lastLoginTime") : null;
-            String jphone = json.has("phone") ? json.getString("phone") : null;
-            String jemail = json.has("email") ? json.getString("email") : null;
-            String jsmsemail = json.has("smsemail") ? json.getString("smsemail") : null;
-            String jpasswordHash = json.has("passwordHash") ? json.getString("passwordHash") : null;
-            String jresetCodeHash = json.has("resetCodeHash") ? json.getString("resetCodeHash") : null;
-            String jfirstName = json.has("firstName") ? json.getString("firstName") : null;
-            String jmiddleName = json.has("middleName") ? json.getString("middleName") : null;
-            String jlastName = json.has("lastName") ? json.getString("lastName") : null;
-            String jexternalAuthentication = json.has("externalAuthentication") ? json.getString("externalAuthentication") : null;
-            String jauthrole = json.has("authrole") ? json.getString("authrole") : null;
+            int jworkerid = json.optInt("workerid");
+            int jisDisabled = json.optInt("isDisabled");
+            String jlastLoginTime = json.optString("lastLoginTime");
+            String jphone = json.optString("phone");
+            String jemail = json.optString("email");
+            String jsmsemail = json.optString("smsemail");
+            String jpasswordHash = json.optString("passwordHash");
+            String jresetCodeHash = json.optString("resetCodeHash");
+            String jfirstName = json.optString("firstName");
+            String jmiddleName = json.optString("middleName");
+            String jlastName = json.optString("lastName");
+            String jexternalAuthentication = json.optString("externalAuthentication");
+            String jauthrole = json.optString("authrole");
 
             WorkerExt worker = new WorkerExt();
             worker.setWorkerIdExt(jworkerid);

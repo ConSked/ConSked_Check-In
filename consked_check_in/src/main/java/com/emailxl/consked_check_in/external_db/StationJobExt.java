@@ -4,7 +4,7 @@ package com.emailxl.consked_check_in.external_db;
  * @author ECG
  */
 
-public class StationJobExt {
+class StationJobExt {
     private int stationIdExt;
     private int expoIdExt;
     private Timestamp startTime;
@@ -24,10 +24,10 @@ public class StationJobExt {
     private int assignedSupervisor;
 
     // Constructors
-    public StationJobExt() {
+    StationJobExt() {
     }
 
-    public StationJobExt(int stationIdExt, int expoIdExt, Timestamp startTime, Timestamp stopTime,
+    /*public StationJobExt(int stationIdExt, int expoIdExt, Timestamp startTime, Timestamp stopTime,
                          String stationTitle, String description, String location, String URL,
                          String instruction, int jobIdExt, String jobTitle,
                          int maxCrew, int minCrew, int assignedCrew,
@@ -49,7 +49,7 @@ public class StationJobExt {
         this.maxSupervisor = maxSupervisor;
         this.minSupervisor = minSupervisor;
         this.assignedSupervisor = assignedSupervisor;
-    }
+    }*/
 
     // stationIdExt functions
     public int getStationIdExt() {
@@ -88,119 +88,119 @@ public class StationJobExt {
     }
 
     // stationTitle functions
-    public String getStationTitle() {
+    String getStationTitle() {
         return this.stationTitle;
     }
 
-    public void setStationTitle(String stationTitle) {
+    void setStationTitle(String stationTitle) {
         this.stationTitle = stationTitle;
     }
 
     // description functions
-    public String getDescription() {
+    /*String getDescription() {
         return this.description;
-    }
+    }*/
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
     // location functions
-    public String getLocation() {
+    /*public String getLocation() {
         return this.location;
-    }
+    }*/
 
-    public void setLocation(String location) {
+    void setLocation(String location) {
         this.location = location;
     }
 
     // URL functions
-    public String getURL() {
+    /*public String getURL() {
         return this.URL;
-    }
+    }*/
 
-    public void setURL(String URL) {
+    void setURL(String URL) {
         this.URL = URL;
     }
 
     // instruction functions
-    public String getInstruction() {
+    /*public String getInstruction() {
         return this.instruction;
-    }
+    }*/
 
-    public void setInstruction(String instruction) {
+    void setInstruction(String instruction) {
         this.instruction = instruction;
     }
 
     // jobIdExt functions
-    public int getJobIdExt() {
+    /*public int getJobIdExt() {
         return this.jobIdExt;
-    }
+    }*/
 
-    public void setJobIdExt(int jobIdExt) {
+    void setJobIdExt(int jobIdExt) {
         this.jobIdExt = jobIdExt;
     }
 
     // jobTitle functions
-    public String getJobTitle() {
+    /*public String getJobTitle() {
         return this.jobTitle;
-    }
+    }*/
 
-    public void setJobTitle(String jobTitle) {
+    void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
 
     // maxCrew functions
-    public int getMaxCrew() {
+    /*public int getMaxCrew() {
         return this.maxCrew;
-    }
+    }*/
 
-    public void setMaxCrew(int maxCrew) {
+    void setMaxCrew(int maxCrew) {
         this.maxCrew = maxCrew;
     }
 
     // minCrew functions
-    public int getMinCrew() {
+    /*public int getMinCrew() {
         return this.minCrew;
-    }
+    }*/
 
-    public void setMinCrew(int minCrew) {
+    void setMinCrew(int minCrew) {
         this.minCrew = minCrew;
     }
 
     // assignedCrew functions
-    public int getAssignedCrew() {
+    /*public int getAssignedCrew() {
         return this.assignedCrew;
-    }
+    }*/
 
-    public void setAssignedCrew(int assignedCrew) {
+    void setAssignedCrew(int assignedCrew) {
         this.assignedCrew = assignedCrew;
     }
 
     // maxSupervisor functions
-    public int getMaxSupervisor() {
+    /*public int getMaxSupervisor() {
         return this.maxSupervisor;
-    }
+    }*/
 
-    public void setMaxSupervisor(int maxSupervisor) {
+    void setMaxSupervisor(int maxSupervisor) {
         this.maxSupervisor = maxSupervisor;
     }
 
     // minSupervisor functions
-    public int getMinSupervisor() {
+    /*public int getMinSupervisor() {
         return this.minSupervisor;
-    }
+    }*/
 
-    public void setMinSupervisor(int minSupervisor) {
+    void setMinSupervisor(int minSupervisor) {
         this.minSupervisor = minSupervisor;
     }
 
     // assignedSupervisor functions
-    public int getAssignedSupervisor() {
+    /*public int getAssignedSupervisor() {
         return this.assignedSupervisor;
-    }
+    }*/
 
-    public void setAssignedSupervisor(int assignedSupervisor) {
+    void setAssignedSupervisor(int assignedSupervisor) {
         this.assignedSupervisor = assignedSupervisor;
     }
 

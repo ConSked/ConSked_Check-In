@@ -16,7 +16,7 @@ public class WorkerInt {
     public WorkerInt() {
     }
 
-    public WorkerInt(int idInt, int workerIdExt, String firstName, String lastName, String authrole) {
+    WorkerInt(int idInt, int workerIdExt, String firstName, String lastName, String authrole) {
         this.idInt = idInt;
         this.workerIdExt = workerIdExt;
         this.firstName = firstName;
@@ -61,7 +61,7 @@ public class WorkerInt {
     }
 
     // authrole functions
-    public String getAuthrole() {
+    String getAuthrole() {
         return this.authrole;
     }
 

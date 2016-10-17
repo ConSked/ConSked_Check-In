@@ -41,6 +41,7 @@ public class ConSkedCheckInProvider extends ContentProvider {
     static final String SOURCE = "source";
     static final String OPERATION = "operation";
     static final String TABLENAME = "tableName";
+    static final String JSON = "json";
     static final String IDINT = "idInt";
     static final String IDEXT = "idExt";
     static final String DONE = "done";
@@ -269,6 +270,7 @@ public class ConSkedCheckInProvider extends ContentProvider {
                 + SOURCE + " TEXT, "
                 + OPERATION + " TEXT, "
                 + TABLENAME + " TEXT, "
+                + JSON + " TEXT, "
                 + IDINT + " INTEGER, "
                 + IDEXT + " INTEGER, "
                 + DONE + " INTEGER)";
@@ -307,7 +309,7 @@ public class ConSkedCheckInProvider extends ContentProvider {
                 + LASTNAME + " TEXT, "
                 + AUTHROLE + " TEXT)";
 
-        public DBHelper(Context context) {
+        DBHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 

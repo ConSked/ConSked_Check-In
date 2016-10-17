@@ -12,7 +12,6 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.emailxl.consked_check_in.utils.AppConstants;
 
@@ -24,8 +23,6 @@ public class Loading extends AppCompatActivity {
     private static final String TAG = "Loading";
     private static final boolean LOG = false;
 
-    TextView tvEmail, tvPassword;
-    private Account account;
     private static IntentFilter syncIntentFilter = new IntentFilter(ACTION_FINISHED_SYNC);
     private ProgressDialog pd;
     private BroadcastReceiver loadingReceiver = null;
@@ -44,7 +41,7 @@ public class Loading extends AppCompatActivity {
 
             Intent intent = getIntent();
             String email = intent.getStringExtra("email");
-            String password = intent.getStringExtra("password");
+            /*String password = intent.getStringExtra("password");*/
 
             Account account = createSyncAccount(this);
 
