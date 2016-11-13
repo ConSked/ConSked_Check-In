@@ -2,8 +2,6 @@
     <string name="app_name">ConSked Check-In</string>
     <string name="account_type">com.emailxl.consked_check_in</string>
     <string name="provider">com.emailxl.consked_check_in.provider</string>
-    <string name="button_checkin">Check In</string>
-    <string name="button_checkout">Check Out</string>
     <string name="empty_stationJobList">There are no stations</string>
     <string name="empty_workerList">There are not workers</string>
     <string name="error_network">There is currently no network connectivity</string>
@@ -18,4 +16,7 @@
     <string name="label_time">Time</string>
     <string name="label_username">Username</string>
     <string name="no_expo">There is no expo</string>
+    <string name="radio_checkin">Check In</string>
+    <string name="radio_checkout">Check Out</string>
+    <string name="title_activity_crew">Crew</string>
 </resources>

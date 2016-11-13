@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.emailxl.consked_check_in.external_db.WorkerLoginExt;
+import com.emailxl.consked_check_in.utils.AppConstants;
 import com.emailxl.consked_check_in.utils.WorkerLoginAsync;
 
 import java.util.concurrent.ExecutionException;
@@ -20,7 +21,7 @@ import static com.emailxl.consked_check_in.utils.Utils.toastError;
 
 public class Login extends AppCompatActivity {
     private static final String TAG = "Login";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_MAIN;
 
     private EditText etEmail, etPassword;
     private TextView tvError;

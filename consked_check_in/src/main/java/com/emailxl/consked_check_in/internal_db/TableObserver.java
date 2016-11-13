@@ -19,7 +19,7 @@ import static com.emailxl.consked_check_in.utils.Utils.createSyncAccount;
 
 public class TableObserver extends ContentObserver {
     private static final String TAG = "TableObserver";
-    private static final boolean LOG = true;
+    private static final boolean LOG = AppConstants.LOG_INT;
     private Context context;
 
     public TableObserver(Handler handler, Context context) {

@@ -22,9 +22,11 @@ public class WorkerLoginAPI {
 
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "WorkerLogin/";
     private static final String TAG = "WorkerLoginAPI";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_EXT;
 
     public static String WorkerLogin(WorkerLoginExt params) {
+
+        if (LOG) Log.i(TAG, "WorkerLogin called");
 
         InputStream is = null;
         String output = "";

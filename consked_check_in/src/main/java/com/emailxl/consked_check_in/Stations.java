@@ -25,6 +25,8 @@ import com.emailxl.consked_check_in.internal_db.ExpoHandler;
 import com.emailxl.consked_check_in.internal_db.ExpoInt;
 import com.emailxl.consked_check_in.internal_db.StationJobHandler;
 import com.emailxl.consked_check_in.internal_db.StationJobInt;
+import com.emailxl.consked_check_in.internal_db.WorkerHandler;
+import com.emailxl.consked_check_in.internal_db.WorkerInt;
 import com.emailxl.consked_check_in.utils.AppConstants;
 import com.emailxl.consked_check_in.utils.StationJobAdapter;
 
@@ -37,12 +39,13 @@ import static com.emailxl.consked_check_in.utils.Utils.toastError;
 public class Stations extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String ACTION_FINISHED_SYNC = "com.emailxl.consked_check_in.ACTION_FINISHED_SYNC";
     private static final String TAG = "Stations";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_MAIN;
 
-    SharedPreferences prefs;
+    private SharedPreferences prefs;
     private int expoIdActive;
     private TextView tvExpoName;
     private ExpoHandler dbe;
+    private WorkerHandler dbw;
     private StationJobHandler dbs;
     private List<StationJobInt> stationJobInts;
     private List<String> dateList;
@@ -69,6 +72,8 @@ public class Stations extends AppCompatActivity implements AdapterView.OnItemSel
         if (expoIdActive == 0) {
             expoIdActive = expoInts.get(0).getExpoIdExt();
         }
+
+        dbw = new WorkerHandler(this);
 
         tvExpoName = (TextView) findViewById(R.id.expoName);
 
@@ -155,9 +160,17 @@ public class Stations extends AppCompatActivity implements AdapterView.OnItemSel
             @Override
             public void onReceive(Context context, Intent intent) {
 
-                Intent inWorkers = new Intent(context, Workers.class);
-                startActivity(inWorkers);
-                finish();
+                WorkerInt user = dbw.getUser();
+
+                if ("CREWMEMBER".equals(user.getAuthrole())) {
+                    Intent inCrew = new Intent(context, Crew.class);
+                    startActivity(inCrew);
+                    finish();
+                } else {
+                    Intent inWorkers = new Intent(context, Workers.class);
+                    startActivity(inWorkers);
+                    finish();
+                }
 
                 if (pd != null && pd.isShowing()) {
                     pd.dismiss();

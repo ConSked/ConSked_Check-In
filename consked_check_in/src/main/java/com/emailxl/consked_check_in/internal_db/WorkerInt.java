@@ -11,17 +11,20 @@ public class WorkerInt {
     private String firstName;
     private String lastName;
     private String authrole;
+    private int user;
 
     // Constructors
     public WorkerInt() {
     }
 
-    WorkerInt(int idInt, int workerIdExt, String firstName, String lastName, String authrole) {
+    WorkerInt(int idInt, int workerIdExt, String firstName, String lastName,
+              String authrole, int user) {
         this.idInt = idInt;
         this.workerIdExt = workerIdExt;
         this.firstName = firstName;
         this.lastName = lastName;
         this.authrole = authrole;
+        this.user = user;
     }
 
     // idInt functions
@@ -61,12 +64,21 @@ public class WorkerInt {
     }
 
     // authrole functions
-    String getAuthrole() {
+    public String getAuthrole() {
         return this.authrole;
     }
 
     public void setAuthrole(String authrole) {
         this.authrole = authrole;
+    }
+
+    // user functions
+    int getUser() {
+        return this.user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
     }
 
     @Override
@@ -76,6 +88,7 @@ public class WorkerInt {
                 "workerIdExt=" + workerIdExt + ", " +
                 "firstName=" + firstName + ", " +
                 "lastName=" + lastName + ", " +
-                "authrole=" + authrole + "]";
+                "authrole=" + authrole + ", " +
+                "user=" + user + "]";
     }
 }

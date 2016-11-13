@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.emailxl.consked_check_in.utils.AppConstants;
+
 /**
  * @author ECG
  */
 public class SyncService extends Service {
     private static final String TAG = "SyncService";
-    private static final boolean LOG = true;
+    private static final boolean LOG = AppConstants.LOG_EXT;
     // Object to use as a thread-safe lock
     private static final Object sSyncAdapterLock = new Object();
     // Storage for an instance of the sync adapter

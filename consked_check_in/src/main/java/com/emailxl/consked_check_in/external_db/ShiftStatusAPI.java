@@ -23,9 +23,11 @@ class ShiftStatusAPI {
 
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "ShiftStatus/";
     private static final String TAG = "ShiftStatusAPI";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_EXT;
 
     static int createShiftStatus(ShiftStatusExt params) {
+
+        if (LOG) Log.i(TAG, "createShiftStatus called");
 
         InputStream is = null;
         int output = 0;
@@ -67,6 +69,8 @@ class ShiftStatusAPI {
     }
 
     static ShiftStatusExt[] readShiftStatus(int expoIdExt, int stationIdExt, int workerIdExt) {
+
+        if (LOG) Log.i(TAG, "readShiftStatus called");
 
         String stringUrl = SERVER_URL + "Search/";
 

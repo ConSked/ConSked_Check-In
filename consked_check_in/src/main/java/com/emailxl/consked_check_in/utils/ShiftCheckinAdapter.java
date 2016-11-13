@@ -6,7 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.emailxl.consked_check_in.R;
@@ -27,8 +28,8 @@ import java.util.Locale;
 public class ShiftCheckinAdapter extends ArrayAdapter<ShiftCheckin> {
     private LayoutInflater mInflater;
     private Context mContext;
-    private List<ShiftCheckin> mShiftCheckinList;
     private int mViewResourceId;
+    private List<ShiftCheckin> mShiftCheckinList;
 
     public ShiftCheckinAdapter(Context context, int viewResourceId, List<ShiftCheckin> shiftCheckinList) {
         super(context, viewResourceId, shiftCheckinList);
@@ -56,9 +57,9 @@ public class ShiftCheckinAdapter extends ArrayAdapter<ShiftCheckin> {
 
     @Override
     public @NonNull View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        final ViewHolder holder;
+        ViewHolder holder;
 
-        final ShiftCheckin shiftCheckin = mShiftCheckinList.get(position);
+        ShiftCheckin shiftCheckin = mShiftCheckinList.get(position);
         final ShiftAssignmentInt shiftAssignment = shiftCheckin.getShiftAssignment();
         final int workerIdExt = shiftAssignment.getWorkerIdExt();
         final int stationIdExt = shiftAssignment.getStationIdExt();
@@ -75,76 +76,64 @@ public class ShiftCheckinAdapter extends ArrayAdapter<ShiftCheckin> {
             holder.tvWorkerName = (TextView) convertView.findViewById(R.id.workerName);
             holder.tvWorkerName.setText(name);
 
-            holder.buCheckIn = (Button) convertView.findViewById(R.id.button_checkin);
-            holder.buCheckIn.setOnClickListener(
-                    new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View view) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-                            String now = sdf.format(new Date());
-
-                            ShiftStatusInt shiftstatusInt = new ShiftStatusInt();
-                            shiftstatusInt.setShiftstatusIdExt(0);
-                            shiftstatusInt.setWorkerIdExt(workerIdExt);
-                            shiftstatusInt.setStationIdExt(stationIdExt);
-                            shiftstatusInt.setExpoIdExt(expoIdExt);
-                            shiftstatusInt.setStatusType("CHECK_IN");
-                            shiftstatusInt.setStatusTime(now);
-                            dbs.addShiftStatus(shiftstatusInt, 1);
-
-                            holder.buCheckIn.setEnabled(false);
-                            holder.buCheckOut.setEnabled(true);
-                        }
-                    }
-            );
-
-            holder.buCheckOut = (Button) convertView.findViewById(R.id.button_checkout);
-            holder.buCheckOut.setOnClickListener(
-                    new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View view) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-                            String now = sdf.format(new Date());
-
-                            ShiftStatusInt shiftstatusInt = new ShiftStatusInt();
-                            shiftstatusInt.setShiftstatusIdExt(0);
-                            shiftstatusInt.setWorkerIdExt(shiftAssignment.getWorkerIdExt());
-                            shiftstatusInt.setStationIdExt(shiftAssignment.getStationIdExt());
-                            shiftstatusInt.setExpoIdExt(shiftAssignment.getExpoIdExt());
-                            shiftstatusInt.setStatusType("CHECK_OUT");
-                            shiftstatusInt.setStatusTime(now);
-                            dbs.addShiftStatus(shiftstatusInt, 1);
-
-                            holder.buCheckIn.setEnabled(true);
-                            holder.buCheckOut.setEnabled(false);
-                        }
-                    }
-            );
-
-            if ("CHECK_IN".equals(statusType)) {
-                holder.buCheckIn.setEnabled(false);
-                holder.buCheckOut.setEnabled(true);
-            } else if ("CHECK_OUT".equals(statusType)) {
-                holder.buCheckIn.setEnabled(true);
-                holder.buCheckOut.setEnabled(false);
-            }
+            holder.rgShift = (RadioGroup) convertView.findViewById(R.id.rgroup_shift);
+            holder.rbCheckIn = (RadioButton) convertView.findViewById(R.id.radio_checkin);
+            holder.rbCheckOut = (RadioButton) convertView.findViewById(R.id.radio_checkout);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.buCheckIn.setTag(position);
-        holder.buCheckOut.setTag(position);
+        holder.rgShift.setOnCheckedChangeListener(null);
+
+        if ("CHECK_IN".equals(statusType)) {
+            holder.rbCheckOut.setChecked(true);
+        } else if ("CHECK_OUT".equals(statusType)) {
+            holder.rbCheckIn.setChecked(true);
+        }
+
+        holder.rgShift.setOnCheckedChangeListener(
+                new RadioGroup.OnCheckedChangeListener() {
+
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+                        String now = sdf.format(new Date());
+
+                        String statusType = "";
+                        switch(checkedId) {
+                            case R.id.radio_checkin:
+                                statusType = "CHECK_OUT";
+                                break;
+                            case R.id.radio_checkout:
+                                statusType = "CHECK_IN";
+                                break;
+                            default:
+                                break;
+                        }
+
+                        ShiftStatusInt shiftStatusInt = new ShiftStatusInt();
+                        shiftStatusInt.setShiftstatusIdExt(0);
+                        shiftStatusInt.setWorkerIdExt(workerIdExt);
+                        shiftStatusInt.setStationIdExt(stationIdExt);
+                        shiftStatusInt.setExpoIdExt(expoIdExt);
+                        shiftStatusInt.setStatusType(statusType);
+                        shiftStatusInt.setStatusTime(now);
+                        dbs.addShiftStatus(shiftStatusInt, 1);
+                    }
+                }
+        );
+
 
         return convertView;
     }
 
     private static class ViewHolder {
         TextView tvWorkerName;
-        Button buCheckIn;
-        Button buCheckOut;
+        RadioGroup rgShift;
+        RadioButton rbCheckIn;
+        RadioButton rbCheckOut;
     }
 }

@@ -20,10 +20,13 @@ import static com.emailxl.consked_check_in.utils.Utils.readStream;
 public class InstanceIdService extends FirebaseInstanceIdService {
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "Firebase/";
     private static final String TAG = "InstanceIdService";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_EXT;
 
     @Override
     public void onTokenRefresh() {
+
+        if (LOG) Log.i(TAG, "onTokenRefresh called");
+
         // Get hold of the registration token
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         // Log the token
@@ -33,6 +36,9 @@ public class InstanceIdService extends FirebaseInstanceIdService {
     }
 
     private int sendRegistrationTokenToServer(String token) {
+
+        if (LOG) Log.i(TAG, "sendRegistrationTokenToServer called");
+
         // Implement this method if you want to store the token on your server
         String android_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 

@@ -39,9 +39,10 @@ import java.util.List;
 public class Workers extends AppCompatActivity {
     public static final String ACTION_FINISHED_SYNC = "com.emailxl.consked_check_in.ACTION_FINISHED_SYNC";
     private static final String TAG = "Workers";
-    private static final boolean LOG = false;
-    SharedPreferences prefs;
+    private static final boolean LOG = AppConstants.LOG_MAIN;
+
     private int expoIdExt, stationIdExt;
+    private List<ShiftCheckin> shiftCheckinList;
     private ShiftCheckinAdapter shiftCheckinAdapter;
     private TableObserver observer;
     private ContentResolver resolver;
@@ -55,7 +56,7 @@ public class Workers extends AppCompatActivity {
         if (LOG) Log.i(TAG, "Create page");
 
         // get expoIdExt and stationIdExt from preferences
-        prefs = this.getSharedPreferences(AppConstants.PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences prefs = this.getSharedPreferences(AppConstants.PREFERENCES, Context.MODE_PRIVATE);
         expoIdExt = prefs.getInt("expoIdExt", 0);
         stationIdExt = prefs.getInt("stationIdExt", 0);
 
@@ -84,10 +85,12 @@ public class Workers extends AppCompatActivity {
         tvTime.setText(time);
 
         // output the shiftCheckin list
-        List<ShiftCheckin> shiftCheckins = fillShiftCheckin(expoIdExt, stationIdExt);
+        /*List<ShiftCheckin> shiftCheckins = fillShiftCheckin(expoIdExt, stationIdExt);
 
-        List<ShiftCheckin> shiftCheckinList = new ArrayList<>();
-        shiftCheckinList.addAll(shiftCheckins);
+        shiftCheckinList = new ArrayList<>();
+        shiftCheckinList.addAll(shiftCheckins);*/
+
+        shiftCheckinList = fillShiftCheckin(expoIdExt, stationIdExt);
 
         shiftCheckinAdapter = new ShiftCheckinAdapter(this, R.layout.shiftassignment_item, shiftCheckinList);
 
@@ -102,9 +105,16 @@ public class Workers extends AppCompatActivity {
 
                 List<ShiftCheckin> shiftCheckins = fillShiftCheckin(expoIdExt, stationIdExt);
 
-                shiftCheckinAdapter.clear();
-                shiftCheckinAdapter.addAll(shiftCheckins);
+                /*shiftCheckinAdapter.clear();
+                shiftCheckinAdapter.addAll(shiftCheckins);*/
+
+                shiftCheckinList.clear();
+                shiftCheckinList.addAll(shiftCheckins);
                 shiftCheckinAdapter.notifyDataSetChanged();
+
+                /*ecgeroIntent inWorkers = new Intent(context, Workers.class);
+                startActivity(inWorkers);
+                finish();*/
             }
         };
     }
@@ -181,7 +191,7 @@ public class Workers extends AppCompatActivity {
                 shiftCheckin.setName(name);
 
                 // Get statusType
-                String statusType = "CHECK_IN";
+                String statusType = "CHECK_OUT";
                 List<ShiftStatusInt> shiftStatusInts = dbs.getShiftStatusIdExt(expoIdExt, stationIdExt, workerIdExt);
                 if (shiftStatusInts != null && shiftStatusInts.size() != 0) {
                     statusType = shiftStatusInts.get(0).getStatusType();

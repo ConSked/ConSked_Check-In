@@ -21,7 +21,7 @@ import static com.emailxl.consked_check_in.utils.Utils.toastError;
 public class Loading extends AppCompatActivity {
     public static final String ACTION_FINISHED_SYNC = "com.emailxl.consked_check_in.ACTION_FINISHED_SYNC";
     private static final String TAG = "Loading";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_MAIN;
 
     private static IntentFilter syncIntentFilter = new IntentFilter(ACTION_FINISHED_SYNC);
     private ProgressDialog pd;

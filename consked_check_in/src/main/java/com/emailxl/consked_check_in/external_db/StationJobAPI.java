@@ -21,9 +21,11 @@ class StationJobAPI {
 
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "StationJob/";
     private static final String TAG = "StationJobAPI";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_EXT;
 
     /*public static StationJobExt[] readStationJob(int id) {
+
+        if (LOG) Log.i(TAG, "readStationJob called");
 
         String stringUrl = SERVER_URL;
 
@@ -62,6 +64,8 @@ class StationJobAPI {
     }*/
 
     static StationJobExt[] searchStationJob(int expoId) {
+
+        if (LOG) Log.i(TAG, "searchStationJob called");
 
         String stringUrl = SERVER_URL + "Search/" + expoId;
 

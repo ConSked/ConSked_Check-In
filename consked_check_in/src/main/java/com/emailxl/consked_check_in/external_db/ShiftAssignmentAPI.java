@@ -20,9 +20,11 @@ import static com.emailxl.consked_check_in.utils.Utils.readStream;
 class ShiftAssignmentAPI {
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "ShiftAssignment/Search/";
     private static final String TAG = "ShiftAssignmentAPI";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_EXT;
 
     static ShiftAssignmentExt[] searchShiftAssignment(int expoIdExt, int workerIdExt) {
+
+        if (LOG) Log.i(TAG, "ShiftAssignmentExt called");
 
         String stringUrl = SERVER_URL;
 

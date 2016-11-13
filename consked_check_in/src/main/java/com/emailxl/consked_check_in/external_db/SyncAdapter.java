@@ -25,6 +25,7 @@ import com.emailxl.consked_check_in.internal_db.StationJobHandler;
 import com.emailxl.consked_check_in.internal_db.StationJobInt;
 import com.emailxl.consked_check_in.internal_db.WorkerHandler;
 import com.emailxl.consked_check_in.internal_db.WorkerInt;
+import com.emailxl.consked_check_in.utils.AppConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +53,7 @@ import static com.emailxl.consked_check_in.external_db.WorkerAPI.searchWorker;
  */
 class SyncAdapter extends AbstractThreadedSyncAdapter {
     private static final String TAG = "SyncAdapter";
-    private static final boolean LOG = true;
+    private static final boolean LOG = AppConstants.LOG_EXT;
 
     private ContentResolver mContentResolver;
     private Context mContext;
@@ -75,7 +76,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
 
-        if (LOG) Log.i(TAG, "Starting sync");
+        if (LOG) Log.i(TAG, "Starting onPerformSync");
 
         String action = extras.containsKey("action") ? extras.getString("action") : "";
         String username = extras.containsKey("username") ? extras.getString("username") : "";
@@ -111,12 +112,12 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
             }
         }
 
-        if (LOG) Log.i(TAG, "Ending sync");
+        if (LOG) Log.i(TAG, "Ending onPerformSync");
     }
 
     private void syncReadExt(String username) {
 
-        if (LOG) Log.i(TAG, "Read");
+        if (LOG) Log.i(TAG, "Starting syncReadExt");
 
         WorkerHandler dbw = new WorkerHandler(mContext);
         dbw.deleteWorkerAll();
@@ -139,6 +140,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
                 workerInt.setFirstName(workerExt.getFirstName());
                 workerInt.setLastName(workerExt.getLastName());
                 workerInt.setAuthrole(workerExt.getAuthrole());
+                workerInt.setUser(1);
                 dbw.addWorker(workerInt, 0);
             }
 
@@ -197,13 +199,13 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void syncReadShiftExt(int expoIdExt, int stationIdExt) {
 
-        if (LOG) Log.i(TAG, "ReadShift");
+        if (LOG) Log.i(TAG, "Starting SyncReadShiftExt");
 
         ShiftAssignmentHandler dba = new ShiftAssignmentHandler(mContext);
         dba.deleteShiftAssignmentAll();
 
         WorkerHandler dbw = new WorkerHandler(mContext);
-        dbw.deleteWorkerAll();
+        dbw.deleteWorkerNonUser();
 
         ShiftStatusHandler dbs = new ShiftStatusHandler(mContext);
         dbs.deleteShiftStatusAll();
@@ -234,6 +236,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
                         workerInt.setFirstName(workerExt.getFirstName());
                         workerInt.setLastName(workerExt.getLastName());
                         workerInt.setAuthrole(workerExt.getAuthrole());
+                        workerInt.setUser(0);
                         dbw.addWorker(workerInt, 0);
 
                         // get shiftStatus from the external database
@@ -263,7 +266,8 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void syncShiftStatusExtLocal(ChangeLogInt changeLog, ChangeLogHandler dbc) {
 
-        if (LOG) Log.i(TAG, "ShiftStatusExtLocal");
+        if (LOG) Log.i(TAG, "Starting syncShiftStatusExtLocal");
+
         ShiftStatusHandler dbs = new ShiftStatusHandler(mContext);
         ShiftStatusInt shiftStatusInt = dbs.getShiftStatusIdInt(changeLog.getIdInt());
 
@@ -272,7 +276,6 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         if ("create".equals(changeLog.getOperation())) {
 
-            if (LOG) Log.i(TAG, "Create");
             params.setWorkerIdExt(shiftStatusInt.getWorkerIdExt());
             params.setStationIdExt(shiftStatusInt.getStationIdExt());
             params.setExpoIdExt(shiftStatusInt.getExpoIdExt());
@@ -300,7 +303,7 @@ class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void syncShiftStatusExtRemote(ChangeLogInt changeLog, ChangeLogHandler dbc) {
 
-        if (LOG) Log.i(TAG, "ShiftStatusExtRemote");
+        if (LOG) Log.i(TAG, "Starting syncShiftStatusExtRemote");
 
         ShiftStatusInt shiftstatus = new ShiftStatusInt();
         try {

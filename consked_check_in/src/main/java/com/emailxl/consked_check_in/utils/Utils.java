@@ -20,7 +20,7 @@ import java.io.InputStreamReader;
  */
 
 public class Utils {
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_UTILS;
 
     public static void toastError(Context context, int errorId) {
         CharSequence text = context.getString(errorId);

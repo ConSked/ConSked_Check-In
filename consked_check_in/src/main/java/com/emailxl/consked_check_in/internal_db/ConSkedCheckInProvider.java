@@ -30,12 +30,12 @@ public class ConSkedCheckInProvider extends ContentProvider {
     public static final String STATIONJOB_TABLE = "stationjob";
     public static final String WORKER_TABLE = "worker";
     // fields for my content provider
-    static final String PROVIDER_NAME = AppConstants.AUTHORITY;
+    private static final String PROVIDER_NAME = AppConstants.AUTHORITY;
     // for MIME types
-    static final String LIST = "vnd.android.cursor/";
+    private static final String LIST = "vnd.android.cursor/";
     // database information
-    static final String DATABASE_NAME = "ConSked";
-    static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "ConSked";
+    private static final int DATABASE_VERSION = 1;
     // database field names;
     static final String TIMESTAMP = "timestamp";
     static final String SOURCE = "source";
@@ -60,14 +60,15 @@ public class ConSkedCheckInProvider extends ContentProvider {
     static final String FIRSTNAME = "firstName";
     static final String LASTNAME = "lastName";
     static final String AUTHROLE = "authrole";
+    static final String USER = "user";
 
     // integer values used in content URI
-    static final int CHANGELOG_LIST = 1;
-    static final int EXPO_LIST = 2;
-    static final int SHIFTASSIGNMENT_LIST = 3;
-    static final int SHIFTSTATUS_LIST = 4;
-    static final int STATIONJOB_LIST = 5;
-    static final int WORKER_LIST = 6;
+    private static final int CHANGELOG_LIST = 1;
+    private static final int EXPO_LIST = 2;
+    private static final int SHIFTASSIGNMENT_LIST = 3;
+    private static final int SHIFTSTATUS_LIST = 4;
+    private static final int STATIONJOB_LIST = 5;
+    private static final int WORKER_LIST = 6;
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -307,7 +308,8 @@ public class ConSkedCheckInProvider extends ContentProvider {
                 + WORKERIDEXT + " INTEGER, "
                 + FIRSTNAME + " TEXT, "
                 + LASTNAME + " TEXT, "
-                + AUTHROLE + " TEXT)";
+                + AUTHROLE + " TEXT, "
+                + USER + " INTEGER)";
 
         DBHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);

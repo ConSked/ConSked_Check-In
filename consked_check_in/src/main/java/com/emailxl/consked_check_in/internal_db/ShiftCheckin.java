@@ -52,6 +52,6 @@ public class ShiftCheckin {
         return getClass().getName() + "[" +
                 "shiftAssignment=" + shiftAssignment.toString() + ", " +
                 "name=" + name + ", " +
-                "statusType=" + statusType + ", " + "]";
+                "statusType=" + statusType + "]";
     }
 }

@@ -21,9 +21,11 @@ class ExpoAPI {
 
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "Expo/";
     private static final String TAG = "ExpoAPI";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_EXT;
 
     /*public static ExpoExt[] readExpo(int id) {
+
+        if (LOG) Log.i(TAG, "ExpoExt called");
 
         String stringUrl = SERVER_URL;
 
@@ -62,6 +64,8 @@ class ExpoAPI {
     }*/
 
     static ExpoExt[] searchExpo(int workerId) {
+
+        if (LOG) Log.i(TAG, "searchExpo called");
 
         String stringUrl = SERVER_URL + "Search/" + workerId;
 

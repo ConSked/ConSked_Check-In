@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.emailxl.consked_check_in.internal_db.ChangeLogHandler;
 import com.emailxl.consked_check_in.internal_db.ChangeLogInt;
+import com.emailxl.consked_check_in.utils.AppConstants;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -11,12 +12,12 @@ import java.util.Map;
 
 public class MessagingService extends FirebaseMessagingService {
     private static final String TAG = "MessagingService";
-    private static final Boolean LOG = true;
+    private static final boolean LOG = AppConstants.LOG_EXT;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        if (LOG) Log.i(TAG, "Starting onMessageReceived");
+        if (LOG) Log.i(TAG, "onMessageReceived called");
 
         Map<String, String> data = remoteMessage.getData();
 
@@ -33,7 +34,5 @@ public class MessagingService extends FirebaseMessagingService {
         changeLog.setDone(0);
 
         dbc.addChangeLog(changeLog);
-
-        if (LOG) Log.i(TAG, "Ending onMessageReceived");
     }
 }

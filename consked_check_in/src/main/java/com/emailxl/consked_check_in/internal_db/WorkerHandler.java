@@ -33,7 +33,7 @@ public class WorkerHandler {
     }
 
     /**
-     * Method to add an worker to the worker table
+     * Method to add a worker to the worker table
      *
      * @param worker The worker object.
      * @param log equals 1 if change should be logged, 0 otherwise
@@ -47,6 +47,7 @@ public class WorkerHandler {
         values.put(ConSkedCheckInProvider.FIRSTNAME, worker.getFirstName());
         values.put(ConSkedCheckInProvider.LASTNAME, worker.getLastName());
         values.put(ConSkedCheckInProvider.AUTHROLE, worker.getAuthrole());
+        values.put(ConSkedCheckInProvider.USER, worker.getUser());
 
         Uri newuri = context.getContentResolver().insert(uri, values);
 
@@ -95,12 +96,54 @@ public class WorkerHandler {
                         cursor.getInt(1),       // workerIdExt
                         cursor.getString(2),    // firstName
                         cursor.getString(3),    // lastName
-                        cursor.getString(4));   // authrole
+                        cursor.getString(4),    // authrole
+                        cursor.getInt(5));      // user
             }
 
             cursor.close();
         }
         return worker;
+    }
+
+    /**
+     * Method to retrieve the user
+     *
+     * @return The user object.
+     */
+    public WorkerInt getUser() {
+
+        String selection = ConSkedCheckInProvider.USER + " = 1";
+
+        Cursor cursor = context.getContentResolver().query(uri, null, selection, null, null);
+
+        WorkerInt worker = null;
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+
+                worker = new WorkerInt(
+                        cursor.getInt(0),       // idInt
+                        cursor.getInt(1),       // workerIdExt
+                        cursor.getString(2),    // firstName
+                        cursor.getString(3),    // lastName
+                        cursor.getString(4),    // authrole
+                        cursor.getInt(5));      // user
+            }
+
+            cursor.close();
+        }
+        return worker;
+    }
+
+    /**
+     * Method for deleting non-user workers
+     *
+     * @return The number of rows deleted.
+     */
+    public int deleteWorkerNonUser() {
+
+        String selection = ConSkedCheckInProvider.USER + " = 0";
+
+        return context.getContentResolver().delete(uri, selection, null);
     }
 
     /**

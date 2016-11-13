@@ -15,7 +15,7 @@ import static com.emailxl.consked_check_in.external_db.WorkerLoginAPI.WorkerLogi
 
 public class WorkerLoginAsync extends AsyncTask<WorkerLoginExt, Void, String> {
     private static final String TAG = "WorkerLoginAsync";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_UTILS;
 
     private Context context;
     private int messageId;

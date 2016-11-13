@@ -44,7 +44,6 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator"/>
         </service>
-
         <service
             android:name=".external_db.SyncService"
             android:exported="false">
@@ -58,21 +57,19 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter"/>
         </service>
-
-        <service
-            android:name=".external_db.MessagingService">
+        <service android:name=".external_db.MessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
-        <service
-            android:name=".external_db.InstanceIdService">
+        <service android:name=".external_db.InstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
 
+        <activity android:name=".Crew">
+        </activity>
     </application>
 
 </manifest>

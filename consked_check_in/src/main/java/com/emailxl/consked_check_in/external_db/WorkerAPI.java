@@ -21,9 +21,11 @@ class WorkerAPI {
 
     private static final String SERVER_URL = AppConstants.SERVER_DIR + "Worker/";
     private static final String TAG = "WorkerAPI";
-    private static final boolean LOG = false;
+    private static final boolean LOG = AppConstants.LOG_EXT;
 
     static WorkerExt[] readWorker(int id) {
+
+        if (LOG) Log.i(TAG, "WorkerExt called");
 
         String stringUrl = SERVER_URL;
 
@@ -62,6 +64,8 @@ class WorkerAPI {
     }
 
     static WorkerExt[] searchWorker(String username) {
+
+        if (LOG) Log.i(TAG, "searchWorker called");
 
         String stringUrl = SERVER_URL + "Search/" + username;
 

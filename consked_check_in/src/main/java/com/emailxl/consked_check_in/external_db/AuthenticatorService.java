@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.emailxl.consked_check_in.utils.AppConstants;
+
 /**
  * @author ECG
  */
 
 public class AuthenticatorService extends Service {
     private static final String TAG = "AuthenticatorService";
-    private static final boolean LOG = true;
+    private static final boolean LOG = AppConstants.LOG_EXT;
 
     // Instance field that stores the authenticator object
     private Authenticator mAuthenticator;
